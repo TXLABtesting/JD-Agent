@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MOCA — Job Description Agent (Demo)</title>
+<style>
+  :root{
+    --ink:#243154;--ink2:#33406A;--paper:#F4F6FA;--surface:#fff;--line:#E7EBF2;
+    --muted:#6B7388;--muted2:#9AA2B4;--accent:#B8943F;--accent-bg:#F6EFDD;--gold:#B8943F;--gold-d:#A07F2F;
+    --blue:#3F6FD6;--blue-bg:#E8EEFB;--green:#2F9E5B;--green-bg:#E6F4EC;
+    --amber:#A07F2F;--amber-bg:#F6EFDD;
+    --moca:#243154;--moca2:#1C2745;--moca-soft:#EEF1F7;
+    --radius:14px;--rs:9px;--shadow:0 1px 2px rgba(20,33,58,.06),0 8px 24px rgba(20,33,58,.07);
+    --sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.5}
+  .wrap{max-width:1140px;margin:0 auto;padding:18px 18px 48px}
+  .topbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--ink);color:#fff;border-radius:var(--radius);padding:14px 18px;box-shadow:var(--shadow)}
+  .brand{display:flex;align-items:center;gap:11px}
+  .mark{width:34px;height:34px;border-radius:8px;background:linear-gradient(150deg,var(--gold),var(--gold-d));display:grid;place-items:center;font-weight:800;font-size:12px}
+  .titles{display:flex;flex-direction:column;line-height:1.15}
+  .t1{font-weight:700;font-size:14.5px}.t2{font-size:11.5px;color:#AEB9CE}
+  .spacer{flex:1}
+  .sim{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#FBE3A0;background:rgba(255,210,90,.12);border:1px solid rgba(255,210,90,.4);padding:4px 9px;border-radius:999px;white-space:nowrap}
+  .role{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#C7D0E0}
+  .role .av{width:26px;height:26px;border-radius:50%;background:#33486f;display:grid;place-items:center;font-weight:700;font-size:11px}
+  .crumb{margin:12px 2px 0;font-size:11.5px;color:var(--muted);font-weight:600}
+  .crumb b{color:var(--ink)}
+  .stepper{display:flex;gap:8px;margin:10px 0 16px;flex-wrap:wrap}
+  .stp{flex:1;min-width:140px;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:var(--rs);padding:10px 12px;box-shadow:var(--shadow)}
+  .stp .n{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:11px;font-weight:800;color:var(--muted2);flex:none}
+  .stp .nm{font-size:12px;font-weight:700;color:var(--muted2)}
+  .stp .sub{font-size:10.5px;color:var(--muted2)}
+  .stp.active{border-color:var(--accent)}.stp.active .n{border-color:var(--accent);color:#fff;background:var(--accent)}.stp.active .nm{color:var(--ink)}
+  .stp.done .n{border-color:var(--green);background:var(--green);color:#fff}.stp.done .nm{color:var(--ink)}
+  .grid{display:grid;grid-template-columns:1fr 330px;gap:16px;align-items:start}
+  @media(max-width:880px){.grid{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .pad{padding:18px}
+  .hd{padding:13px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px}
+  .hd h2{margin:0;font-size:13.5px;font-weight:700}.hd .r{margin-left:auto;font-size:11.5px;color:var(--muted)}
+  .field{margin-bottom:13px}
+  label{display:block;font-size:11.5px;font-weight:700;color:var(--muted);margin-bottom:5px}
+  select,input,textarea{width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink)}
+  select:focus,input:focus,textarea:focus{outline:none;border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px var(--blue-bg)}
+  .locked{background:#F1F3F7;color:var(--muted);font-size:13px;padding:10px 12px;border:1px dashed var(--line);border-radius:9px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:13px}@media(max-width:560px){.two{grid-template-columns:1fr}}
+  .btn{font-family:inherit;font-size:13px;font-weight:700;border-radius:9px;padding:11px 17px;border:1px solid transparent;cursor:pointer;transition:.12s}
+  .btn:active{transform:translateY(1px)}
+  .btn.pri{background:var(--gold);color:#fff}.btn.pri:hover:not(:disabled){background:var(--gold-d)}
+  .btn.go{background:var(--green);color:#fff}.btn.go:hover{box-shadow:0 4px 12px rgba(46,125,82,.3)}
+  .btn.ghost{background:#fff;color:var(--ink2);border-color:var(--line)}.btn.ghost:hover{background:var(--paper)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}.btn:focus-visible{outline:3px solid #9DBBE0;outline-offset:2px}
+  .row-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+  /* JD doc (unified template) */
+  .jd{font-size:13px}
+  .ident{border:1px solid var(--line);border-radius:var(--rs);overflow:hidden;margin-bottom:16px}
+  .ident table{width:100%;border-collapse:collapse;font-size:12.5px}
+  .ident td{padding:8px 11px;border-bottom:1px solid var(--line)}
+  .ident tr:last-child td{border-bottom:0}
+  .ident td.k{background:#6C7480;color:#fff;font-weight:700;width:38%}
+  .sec{margin-bottom:16px}
+  .sec h3{margin:0 0 7px;font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--gold);display:flex;gap:8px;align-items:baseline}
+  .sec h3 .ar{font-weight:600;color:var(--muted2);font-size:11px}
+  .grp{font-weight:700;font-size:12.5px;color:var(--ink);margin:9px 0 4px}
+  .sec p{margin:0;color:#283246}
+  .sec ul{margin:4px 0 0;padding-left:18px}.sec li{margin-bottom:5px}
+  .resp{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px}
+  .resp .ix{flex:none;width:18px;height:18px;border-radius:5px;background:var(--paper);border:1px solid var(--line);font-size:9.5px;font-weight:800;color:var(--muted);display:grid;place-items:center;margin-top:4px}
+  .resp textarea{min-height:38px;resize:vertical;font-size:12.5px;padding:6px 9px}
+  .resp .ro{font-size:12.6px;color:#283246}
+  .ctab{border:1px solid var(--line);border-radius:var(--rs);overflow:hidden;margin-bottom:10px}
+  .ctab table{width:100%;border-collapse:collapse;font-size:12px}
+  .ctab th{background:var(--ink);color:#fff;text-align:left;padding:7px 10px;font-size:11px}
+  .ctab td{padding:7px 10px;border-top:1px solid var(--line)}
+  .lvl{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px}
+  .lvl.dev{background:var(--amber-bg);color:var(--amber)}.lvl.pro{background:var(--blue-bg);color:var(--blue)}.lvl.adv{background:var(--green-bg);color:var(--green)}
+  /* alignment */
+  .align{border:1px solid var(--line);border-radius:var(--rs);overflow:hidden}
+  .align table{width:100%;border-collapse:collapse;font-size:12px}
+  .align th{background:var(--ink);color:#fff;text-align:left;padding:8px 10px;font-size:11px}
+  .align td{padding:8px 10px;border-top:1px solid var(--line);vertical-align:top}
+  .align tr.warn td{background:var(--amber-bg)}
+  .mini{font-family:var(--mono);font-size:11px}
+  .flagtag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px}
+  .flagtag.ok{background:var(--green-bg);color:var(--green)}.flagtag.warn{background:var(--amber-bg);color:var(--amber)}
+  .reviewbtn{font-size:10.5px;font-weight:700;border:1px solid var(--amber);color:var(--amber);background:#fff;border-radius:7px;padding:3px 8px;cursor:pointer}
+  .note{font-size:12px;border-radius:9px;padding:10px 12px;margin-top:12px}
+  .note.amber{background:var(--amber-bg);color:var(--amber)}.note.green{background:var(--green-bg);color:var(--green);font-weight:600}.note.grey{background:var(--paper);color:var(--muted)}
+  /* trace */
+  .trace{position:sticky;top:18px}
+  .timeline{padding:8px 16px 14px}
+  .tl-empty{color:var(--muted2);font-size:12.5px;padding:22px 4px;text-align:center;line-height:1.6}
+  .step{display:flex;gap:11px;padding:8px 0}
+  .step .rail{flex:none;width:20px;display:flex;justify-content:center;position:relative}
+  .step .rail::before{content:"";position:absolute;top:18px;bottom:-10px;width:2px;background:var(--line)}
+  .step:last-child .rail::before{display:none}
+  .node{width:16px;height:16px;border-radius:50%;border:2px solid var(--line);background:#fff;z-index:1}
+  .step .lab{font-size:12px;font-weight:700}.step .nt{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:2px;word-break:break-word}
+  .step.pending .lab{color:var(--muted2)}
+  .step.active .node{border-color:var(--accent);animation:pulse 1s infinite}
+  .step.done .node{border-color:var(--green);background:var(--green)}.step.done .node::after{content:"\2713";color:#fff;font-size:9px;font-weight:800;display:grid;place-items:center;height:100%}
+  .step.warn .node{border-color:var(--amber);background:var(--amber)}.step.warn .node::after{content:"!";color:#fff;font-size:10px;font-weight:800;display:grid;place-items:center;height:100%}
+  .tag{font-size:10px;font-weight:700;padding:1px 6px;border-radius:999px;margin-left:6px;background:var(--blue-bg);color:var(--blue)}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 3px var(--accent-bg)}50%{box-shadow:0 0 0 6px rgba(192,57,43,.1)}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+  /* ===== MOCA Smart phone ===== */
+  .phonewrap{display:flex;justify-content:center;padding:6px 0 2px}
+  .phone{width:360px;max-width:100%;border-radius:30px;overflow:hidden;border:1px solid #d7deea;box-shadow:0 18px 50px rgba(20,33,58,.18);background:#F3F6FB}
+  .ph-hd{background:linear-gradient(160deg,var(--moca),var(--moca2));color:#fff;padding:14px 16px 56px;position:relative}
+  .ph-status{display:flex;justify-content:space-between;font-size:11px;opacity:.9;margin-bottom:18px}
+  .ph-ava{width:78px;height:78px;border-radius:50%;border:3px solid rgba(255,255,255,.6);background:#cdd9ee;margin:0 auto;display:grid;place-items:center;font-weight:800;font-size:24px;color:var(--moca2)}
+  .ph-body{background:#fff;border-radius:22px 22px 0 0;margin-top:-34px;padding:14px 16px 18px}
+  .ph-name{text-align:center;font-weight:800;font-size:18px;margin-top:6px}
+  .ph-sub{text-align:center;font-size:11.5px;color:var(--muted);margin-bottom:14px}
+  .ph-bk{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;margin:6px 0 12px}
+  .ph-tabs{display:flex;gap:8px;margin-bottom:14px}
+  .ph-tab{flex:1;text-align:center;font-size:12.5px;font-weight:700;padding:9px;border-radius:10px;border:1px solid var(--line);color:var(--muted)}
+  .ph-tab.on{color:var(--moca);border-color:var(--moca);background:var(--moca-soft)}
+  .ph-card{border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:11px}
+  .ph-rcap{display:flex;align-items:center;gap:9px;font-weight:800;font-size:13.5px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:10px}
+  .ph-ic{width:26px;height:26px;border-radius:7px;background:var(--moca-soft);display:grid;place-items:center;color:var(--moca);font-size:13px;flex:none}
+  .ph-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+  .ph-k{font-size:10.5px;color:var(--muted)}
+  .ph-v{font-size:12.5px;font-weight:700;color:var(--ink)}
+  .ph-link{margin-top:11px;text-align:center;border:1px solid var(--moca);color:var(--moca);border-radius:9px;padding:8px;font-size:12px;font-weight:700}
+  .acc{border:1px solid var(--line);border-radius:12px;margin-bottom:9px;overflow:hidden}
+  .acc-h{display:flex;align-items:center;gap:9px;padding:12px;font-weight:700;font-size:13px;cursor:pointer}
+  .acc-h .chev{margin-left:auto;color:var(--moca);transition:transform .2s}
+  .acc.open .acc-h .chev{transform:rotate(180deg)}
+  .acc-b{display:none;padding:0 12px 12px;font-size:12.5px;color:#33405a}
+  .acc.open .acc-b{display:block}
+  .acc-b ul{margin:4px 0 0;padding-left:16px}.acc-b li{margin-bottom:5px}
+  .cc-row{display:flex;justify-content:space-between;align-items:center;background:#F4F6FA;border-radius:8px;padding:9px 11px;margin-bottom:7px;font-size:12.5px}
+  .cc-row b{font-size:12px}
+  .agree{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:11px;margin:4px 0 12px}
+  .agree .cb{width:22px;height:22px;border-radius:6px;border:2px solid var(--moca);display:grid;place-items:center;color:#fff;font-size:12px;flex:none;cursor:pointer}
+  .agree .cb.on{background:var(--moca)}
+  .agree .tx{font-size:12px;color:#33405a;flex:1}
+  .agree .ag{background:var(--gold);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-weight:800;font-size:12.5px;cursor:pointer}
+  .agree .ag:disabled{opacity:.45;cursor:not-allowed}
+  .ph-cta{display:flex;flex-direction:column;gap:9px}
+  .ph-cta .big{background:var(--gold);color:#fff;text-align:center;border-radius:11px;padding:12px;font-weight:800;font-size:13.5px}
+  .ph-cta .out{border:1px solid var(--moca);color:var(--moca);text-align:center;border-radius:11px;padding:12px;font-weight:800;font-size:13.5px}
+  .livebanner{background:var(--green-bg);color:var(--green);font-weight:700;text-align:center;font-size:12.5px;border-radius:10px;padding:9px;margin-bottom:10px}
+  .foot{margin-top:18px;font-size:11.5px;color:var(--muted);line-height:1.7;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
+  .foot b{color:var(--ink)}
+  .cwrap{display:flex;flex-direction:column;min-height:440px}
+  .cscroll{flex:1;overflow-y:auto;padding:4px 2px;display:flex;flex-direction:column;gap:12px;margin-bottom:8px}
+  .cmsg{display:flex;gap:10px;max-width:92%}
+  .cmsg.u{align-self:flex-end;flex-direction:row-reverse}
+  .cmsg .av{width:30px;height:30px;border-radius:8px;flex:none;display:grid;place-items:center;font-weight:800;font-size:11px;color:#fff}
+  .cmsg .av.c{background:var(--gold)}.cmsg .av.me{background:var(--ink2)}
+  .cname{font-size:10.5px;font-weight:700;color:var(--muted);margin-bottom:3px}
+  .cbub{padding:11px 13px;border-radius:12px;font-size:13.5px;background:var(--paper);border:1px solid var(--line);border-bottom-left-radius:4px}
+  .cmsg.u .cbub{background:var(--ink);color:#fff;border-color:var(--ink);border-bottom-left-radius:12px;border-bottom-right-radius:4px}
+  .cchips{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 10px}
+  .cchip{font-family:inherit;font-size:12px;font-weight:600;color:var(--ink2);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:8px 12px;cursor:pointer}
+  .cchip:hover{border-color:var(--gold);color:var(--gold-d);background:var(--gold-soft)}
+  .cinrow{display:flex;gap:9px}
+  .typing{display:inline-flex;gap:4px;align-items:center}
+  .typing span{width:6px;height:6px;border-radius:50%;background:var(--muted2);animation:blink 1.2s infinite}
+  .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <div class="brand"><div class="mark">MOCA</div><div class="titles"><span class="t1">MOCA \u00b7 Job Description Agent</span><span class="t2">HR Services Department \u00b7 powered by Oracle</span></div></div>
+    <span class="spacer"></span><span class="sim">Simulation \u00b7 illustrative</span>
+    <div class="role"><span class="av" id="roleAv">TS</span><span id="roleName">Talent Specialist</span></div>
+  </header>
+  <div class="crumb">Ministry of Cabinet Affairs &rsaquo; <b>Central Services Sector</b> &rsaquo; <b>HR Services Department</b> &rsaquo; <b>UX \u2013 Total Experience</b> &rsaquo; <b>Total Experience Team</b></div>
+
+  <div class="stepper" id="stepper">
+    <div class="stp active" data-s="0"><span class="n">✦</span><div><div class="nm">Concierge</div><div class="sub">request via chat</div></div></div>
+    <div class="stp" data-s="1"><span class="n">1</span><div><div class="nm">Talent draft</div><div class="sub">confirm details</div></div></div>
+    <div class="stp" data-s="2"><span class="n">2</span><div><div class="nm">Line Manager</div><div class="sub">edit &amp; approve</div></div></div>
+    <div class="stp" data-s="3"><span class="n">3</span><div><div class="nm">Talent review</div><div class="sub">mandate check</div></div></div>
+    <div class="stp" data-s="4"><span class="n">4</span><div><div class="nm">Employee</div><div class="sub">acknowledge in app</div></div></div>
+  </div>
+
+  <div class="grid">
+    <main class="card" id="main"></main>
+    <aside class="card trace">
+      <div class="hd"><h2>Agent run</h2><span class="r" id="runStatus">Idle</span></div>
+      <div class="timeline" id="timeline"><div class="tl-empty">Create a request and generate a draft to watch the agents resolve the org context, write the unified template, and check the Total Experience mandate.</div></div>
+    </aside>
+  </div>
+
+  <div class="foot">
+    <b>About this demo.</b> A self-contained simulation of MOCA\u2019s job-description authoring agent for the Total Experience Team. Not connected to a live system; employee names, dates, and audit IDs are illustrative. Built on your real inputs: the Total Experience mandate (10 tasks), Article 7 qualifications-by-grade, the competency-level-by-grade framework, the unified template (MOCA-1289), and the MOCA Smart employee interface. Workflow follows your mind map: Talent draft &rarr; Line Manager &rarr; Talent review &rarr; Employee acknowledges &rarr; live.
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const main=$('main'),timeline=$('timeline'),runStatus=$('runStatus'),roleAv=$('roleAv'),roleName=$('roleName');
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const wait=ms=>new Promise(r=>setTimeout(r,reduce?0:ms));
+
+const HIER={entity:"Ministry of Cabinet Affairs (MOCA)",sector:"Central Services Sector",department:"HR Services Department",section:"UX \u2013 Total Experience",unit:"Total Experience Team"};
+const GRADES=["1.1","1.2","1.3","2.1","2.2","2.3","3.1","3.2","3.3","4.1","4.2","4.3","5"];
+
+// Total Experience mandate (your 10 tasks) — EN summary + AR
+const MANDATE=[
+ ["M1","Develop &amp; deliver a comprehensive strategy to improve employee experience through proactive, flexible services","\u062a\u0637\u0648\u064a\u0631 \u0627\u0633\u062a\u0631\u0627\u062a\u064a\u062c\u064a\u0629 \u0634\u0627\u0645\u0644\u0629 \u0644\u062a\u062d\u0633\u064a\u0646 \u062a\u062c\u0631\u0628\u0629 \u0627\u0644\u0645\u0648\u0638\u0641\u064a\u0646"],
+ ["M2","Lead automation of central services and improve UX through digital journey design with technical teams","\u0623\u062a\u0645\u062a\u0629 \u0627\u0644\u062e\u062f\u0645\u0627\u062a \u0648\u062a\u0635\u0645\u064a\u0645 \u0627\u0644\u0631\u062d\u0644\u0627\u062a \u0627\u0644\u0631\u0642\u0645\u064a\u0629"],
+ ["M3","Reduce administrative and paper procedures and raise operational efficiency (zero bureaucracy)","\u062a\u0642\u0644\u064a\u0644 \u0627\u0644\u0625\u062c\u0631\u0627\u0621\u0627\u062a \u0648\u062a\u0635\u0641\u064a\u0631 \u0627\u0644\u0628\u064a\u0631\u0648\u0642\u0631\u0627\u0637\u064a\u0629"],
+ ["M4","Run internal events and loyalty initiatives that strengthen communication, belonging and satisfaction","\u0627\u0644\u0641\u0639\u0627\u0644\u064a\u0627\u062a \u0648\u0628\u0631\u0627\u0645\u062c \u0627\u0644\u0648\u0644\u0627\u0621"],
+ ["M5","Measure employee &amp; customer satisfaction via periodic surveys; analyse and recommend improvements","\u0642\u064a\u0627\u0633 \u0627\u0644\u0631\u0636\u0627 \u0639\u0628\u0631 \u0627\u0644\u0627\u0633\u062a\u0628\u064a\u0627\u0646\u0627\u062a"],
+ ["M6","Manage customer communication channels; handle complaints/feedback and corrective actions","\u0625\u062f\u0627\u0631\u0629 \u0642\u0646\u0648\u0627\u062a \u0627\u0644\u062a\u0648\u0627\u0635\u0644 \u0648\u0627\u0644\u0634\u0643\u0627\u0648\u0649"],
+ ["M7","Manage supplier registration and relations; keep the e-platform easy to use and data current","\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u0645\u0648\u0631\u062f\u064a\u0646 \u0648\u0627\u0644\u0645\u0646\u0635\u0629 \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a\u0629"],
+ ["M8","Oversee special initiatives/projects; prepare performance reports and follow improvement plans","\u0627\u0644\u0625\u0634\u0631\u0627\u0641 \u0639\u0644\u0649 \u0627\u0644\u0645\u0628\u0627\u062f\u0631\u0627\u062a \u0648\u0627\u0644\u062a\u0642\u0627\u0631\u064a\u0631"],
+ ["M9","Contribute to team plans/programs aligned to department &amp; sector strategy; execute after approval","\u0627\u0642\u062a\u0631\u0627\u062d \u062e\u0637\u0637 \u0627\u0644\u0639\u0645\u0644 \u0644\u0644\u0641\u0631\u064a\u0642"],
+ ["M10","Any other tasks and responsibilities assigned","\u0623\u064a \u0645\u0647\u0627\u0645 \u0623\u062e\u0631\u0649 \u064a\u0643\u0644\u0641 \u0628\u0647\u0627"]
+];
+const Mtext=c=>{const m=MANDATE.find(x=>x[0]===c);return m?m[1]:"";};
+
+// Article 7 qualifications by grade
+const QUALS={
+ "5":"Doctorate (12+ yrs) \u00b7 Master\u2019s (14+ yrs) \u00b7 Bachelor\u2019s (16+ yrs)",
+ "4.3":"Doctorate (10+) \u00b7 Master\u2019s (12+) \u00b7 Bachelor\u2019s (14+)",
+ "4.2":"Doctorate (8+) \u00b7 Master\u2019s (9+) \u00b7 Bachelor\u2019s (12+)",
+ "4.1":"Doctorate (6+) \u00b7 Master\u2019s (8+) \u00b7 Bachelor\u2019s (9+)",
+ "3.3":"Doctorate (4+) \u00b7 Master\u2019s (6+) \u00b7 Bachelor\u2019s/High Diploma (8+)",
+ "3.2":"Doctorate (2+) \u00b7 Master\u2019s (4+) \u00b7 Bachelor\u2019s/High Diploma (6+)",
+ "3.1":"Doctorate (0\u20132) \u00b7 Master\u2019s (2+) \u00b7 Bachelor\u2019s/High Diploma (4+) \u00b7 Diploma (11+)",
+ "2.3":"Master\u2019s (0\u20132) \u00b7 Bachelor\u2019s/High Diploma (2+) \u00b7 Diploma (8+)",
+ "2.2":"Bachelor\u2019s/High Diploma (0\u20132) \u00b7 Diploma (5+) \u00b7 High School (12+)",
+ "2.1":"Diploma (2+) \u00b7 High School (7+)",
+ "1.3":"Diploma (0\u20132) \u00b7 High School (3+)",
+ "1.2":"High School (1\u20133)",
+ "1.1":"High School (0\u20131)"
+};
+// Competency level by grade (from competency framework — confirm against shaded table)
+const CORE=["Flexibility &amp; Willingness","Accountability","Teamwork","Communication","Challenge &amp; Excellence"];
+const LEAD=["Strategic Thinking","Decision Making","Leading Change","Empowering &amp; Developing Employees"];
+function coreLevel(g){const M=+g.split('.')[0];return M<=2?"Developing":M===3?"Proficient":"Advanced";}
+function leadLevel(g){if(g==="4.1")return "Proficient";const M=+g.split('.')[0];return M>=4?"Advanced":null;}
+function lvlClass(l){return l==="Developing"?"dev":l==="Proficient"?"pro":"adv";}
+
+// Responsibilities for the Total Experience role (grouped, mandate-tagged; one stretch -> unmapped)
+function buildResp(){return [
+ {grp:"Employee Experience &amp; Engagement",items:[
+   {t:"Support delivery of the employee-experience strategy through proactive, flexible services.",m:"M1"},
+   {t:"Plan and run internal events and loyalty initiatives that build engagement and belonging.",m:"M4"}]},
+ {grp:"Digital Services &amp; Experience Design",items:[
+   {t:"Design and improve digital service journeys and coordinate enhancements with technical teams.",m:"M2"},
+   {t:"Identify and remove unnecessary administrative steps to simplify processes.",m:"M3"}]},
+ {grp:"Measurement &amp; Customer Care",items:[
+   {t:"Run periodic experience surveys, analyse results and recommend improvements.",m:"M5"},
+   {t:"Manage feedback and complaint channels and track corrective actions.",m:"M6"}]},
+ {grp:"Planning &amp; Reporting",items:[
+   {t:"Prepare performance reports on initiatives and follow up improvement plans.",m:"M8"},
+   {t:"Contribute to team work plans aligned with department and sector strategy.",m:"M9"},
+   {t:"Approve the section\u2019s annual operating budget.",m:null}]}
+];}
+
+let state=null;
+function fresh(){state={stage:0,jd:null,returned:"",ack:false,seed:null,mode:"new",version:"v1.0"};}
+fresh();
+
+// ---------- Stage 0: Concierge chat (entry point) ----------
+function cmsg(kind,name,html){
+  const sc=$('cscroll');const d=document.createElement('div');d.className='cmsg'+(kind==='u'?' u':'');
+  d.innerHTML='<div class="av '+(kind==='u'?'me':'c')+'">'+(kind==='u'?'TS':'✦')+'</div>'+
+    '<div style="min-width:0"><div class="cname">'+name+'</div><div class="cbub">'+html+'</div></div>';
+  sc.appendChild(d);sc.scrollTop=sc.scrollHeight;return d;
+}
+function guessTitle(v){return /senior|أول/i.test(v)?'Senior Specialist – Total Experience':/exec/i.test(v)?'Executive – Total Experience':'Specialist – Total Experience';}
+function guessGrade(v){const m=v.match(/[1-5]\.[1-3]/);if(m)return m[0];return /senior|أول/i.test(v)?'2.3':'2.2';}
+
+function chips(items,fn){const cc=$('cchips');cc.innerHTML='';items.forEach(o=>{const b=document.createElement('button');b.className='cchip';b.innerHTML=o.t;b.onclick=()=>fn(o);cc.appendChild(b);});}
+
+function renderConcierge(){
+  setRole('TS','Talent Specialist');setStg(0);
+  main.innerHTML='<div class="hd"><h2>المساعد الذكي · Concierge</h2><span class="r">Talent Team</span></div>'+
+    '<div class="pad cwrap"><div class="cscroll" id="cscroll"></div>'+
+    '<div class="cchips" id="cchips"></div>'+
+    '<div class="cinrow"><input id="cinput" placeholder="Or type what you need…"/>'+
+    '<button class="btn pri" id="csend">Send</button></div></div>';
+  clearTL();timeline.innerHTML='<div class="tl-empty">The Concierge understands your intent and routes it to the JD agent.</div>';
+  runStatus.textContent='Concierge';
+  cmsg('c','Concierge','Welcome to the job description assistant. I can see you’re on the <b>Talent Team</b> — what would you like to do?');
+  chips([
+    {t:'New Job Description',mode:'new'},
+    {t:'Update Existing Job Description',mode:'update'},
+    {t:'Transfer to New Job Description',mode:'transfer'}
+  ],chooseIntent);
+  $('csend').onclick=()=>{const v=$('cinput').value.trim();if(!v)return;const m=/updat/i.test(v)?'update':/transfer/i.test(v)?'transfer':'new';chooseIntent({t:v,mode:m});};
+  $('cinput').addEventListener('keydown',e=>{if(e.key==='Enter')$('csend').click();});
+}
+
+async function chooseIntent(o){
+  $('cchips').innerHTML='';$('cinput').value='';
+  cmsg('u','You',esc(o.t));state.mode=o.mode;
+  const t=cmsg('c','Concierge','<span class="typing"><span></span><span></span><span></span></span>');
+  clearTL();runStatus.textContent='Understanding…';
+  const s1=addStep('Understanding the request','Concierge');st(s1,'active');
+  nt(s1,'intent: '+(o.mode==='new'?'new JD':o.mode==='update'?'update JD':'transfer → new JD'));await wait(800);st(s1,'done');
+  if(o.mode==='new'){
+    t.querySelector('.cbub').innerHTML='New job description. Which role in the <b>Total Experience Team</b>?';
+    chips([
+      {t:'Senior Specialist – Total Experience · 2.3',grade:'2.3',title:'Senior Specialist – Total Experience'},
+      {t:'Specialist – Total Experience · 2.2',grade:'2.2',title:'Specialist – Total Experience'},
+      {t:'Executive – Total Experience · 2.2',grade:'2.2',title:'Executive – Total Experience'}
+    ],pickRole);
+  }else if(o.mode==='update'){
+    t.querySelector('.cbub').innerHTML='Update an existing job description. Which one?';
+    chips([
+      {t:'Senior Specialist – Total Experience · Ayoub Bari · v1.0',grade:'2.3',title:'Senior Specialist – Total Experience',emp:'Ayoub Bari',mgr:'Shamlan Alameri – Total Experience Section Head'},
+      {t:'Specialist – Total Experience · Mariam Saeed · v1.0',grade:'2.2',title:'Specialist – Total Experience',emp:'Mariam Saeed',mgr:'Shamlan Alameri – Total Experience Section Head'}
+    ],pickExisting);
+  }else{
+    t.querySelector('.cbub').innerHTML='Transfer to a new job description. Who is moving, and to which role?';
+    chips([
+      {t:'Ayoub Bari · Specialist (2.2) → Senior Specialist (2.3)',grade:'2.3',title:'Senior Specialist – Total Experience',emp:'Ayoub Bari',mgr:'Shamlan Alameri – Total Experience Section Head'},
+      {t:'Khaled Nasser · Officer HR Services (2.1) → Specialist (2.2)',grade:'2.2',title:'Specialist – Total Experience',emp:'Khaled Nasser',mgr:'Shamlan Alameri – Total Experience Section Head'}
+    ],pickTransfer);
+  }
+}
+
+async function routeToAgent(o,msg){
+  $('cchips').innerHTML='';
+  cmsg('u','You',esc(o.t));
+  const t=cmsg('c','Concierge','<span class="typing"><span></span><span></span><span></span></span>');
+  const s2=addStep('Routing to specialist','Concierge');st(s2,'active');await wait(750);nt(s2,'JD Authoring agent');st(s2,'done');
+  runStatus.textContent='Routed';
+  state.seed={grade:o.grade,title:o.title,emp:o.emp,mgr:o.mgr};
+  state.version=state.mode==='update'?'v1.1':'v1.0';
+  t.querySelector('.cbub').innerHTML=msg+'<div style="margin-top:11px"><button class="btn go" id="cgo">Open the draft →</button></div>';
+  $('cgo').onclick=()=>renderForm();
+}
+function pickRole(o){routeToAgent(o,'Understood — I’ll create a new job description for <b>'+esc(o.title)+'</b> (grade '+o.grade+'). Review the details, then generate the draft.');}
+function pickExisting(o){routeToAgent(o,'Opening <b>'+esc(o.title)+'</b> for '+esc(o.emp)+' (v1.0). Your changes will be saved as <b>v1.1</b> and re-routed for approval and acknowledgment.');}
+function pickTransfer(o){routeToAgent(o,'Transferring <b>'+esc(o.emp)+'</b> to <b>'+esc(o.title)+'</b> (grade '+o.grade+'). I’ll draft the new job description for the new role.');}
+
+// ---------- Stage 1: Talent draft ----------
+function renderForm(){
+  setRole('TS','Talent Specialist');setStg(1);
+  main.innerHTML='<div class="hd"><h2>'+(state.mode==='update'?'Update job description':state.mode==='transfer'?'New job description · transfer':'New job description')+'</h2><span class="r">Talent draft</span></div>'+
+   '<div class="pad">'+
+   (state.returned?'<div class="note amber" style="margin-bottom:14px">'+state.returned+'</div>':'')+
+   '<div style="font-size:11.5px;font-weight:700;color:var(--muted);margin:2px 0 8px">Position in hierarchy \u2014 pre-filled with the default; edit any level if it\u2019s changing</div>'+
+   '<div class="field"><label>Entity</label><input id="f_entity" value="Ministry of Cabinet Affairs (MOCA)"/></div>'+
+   '<div class="two">'+
+     '<div class="field"><label>Sector</label><input id="f_sector" value="Central Services Sector"/></div>'+
+     '<div class="field"><label>Department</label><input id="f_dept" value="HR Services Department"/></div>'+
+   '</div>'+
+   '<div class="two">'+
+     '<div class="field"><label>Section</label><input id="f_section" value="UX \u2013 Total Experience"/></div>'+
+     '<div class="field"><label>Unit</label><input id="f_unit" value="Total Experience Team"/></div>'+
+   '</div>'+
+   '<div class="two">'+
+     '<div class="field"><label>Grade</label><select id="f_grade"></select></div>'+
+     '<div class="field"><label>Position title</label><input id="f_title" value="Senior Specialist \u2013 Total Experience"/></div>'+
+   '</div>'+
+   '<div class="two">'+
+     '<div class="field"><label>Employee full name</label><input id="f_emp" value="Ayoub Bari"/></div>'+
+     '<div class="field"><label>Reporting manager</label><input id="f_mgr" value="Shamlan Alameri \u2013 Total Experience Section Head"/></div>'+
+   '</div>'+
+   '<div class="two">'+
+     '<div class="field"><label>Hire date</label><input id="f_hire" value="AUG 2022"/></div>'+
+     '<div class="field"><label>Contract end date</label><input id="f_end" value="AUG 2027"/></div>'+
+   '</div>'+
+   '<div class="row-actions"><button class="btn pri" id="gen">Generate draft JD</button></div>'+
+   '</div>';
+  const g=$('f_grade');g.innerHTML=GRADES.map(x=>'<option'+(x==="2.3"?" selected":"")+'>'+x+'</option>').join('');
+  if(state.seed){g.value=state.seed.grade;const sv=(id,v)=>{const e=$(id);if(e&&v)e.value=v;};sv('f_title',state.seed.title);sv('f_emp',state.seed.emp);sv('f_mgr',state.seed.mgr);}
+  $('gen').onclick=()=>{
+    state.returned="";
+    state.jd={
+      entity:$('f_entity').value.trim()||HIER.entity,
+      sector:$('f_sector').value.trim()||HIER.sector,
+      department:$('f_dept').value.trim()||HIER.department,
+      section:$('f_section').value.trim()||HIER.section,
+      unit:$('f_unit').value.trim()||HIER.unit,
+      grade:g.value,title:$('f_title').value.trim()||"Specialist \u2013 Total Experience",
+      emp:$('f_emp').value.trim()||"\u2014",mgr:$('f_mgr').value.trim()||"\u2014",
+      hire:$('f_hire').value.trim(),end:$('f_end').value.trim(),
+      jobCode:"MOCA-"+Math.floor(1000+Math.random()*8999),empId:String(Math.floor(100000+Math.random()*899999)),resp:buildResp(),lastChange:"March 2026"};
+    generate();
+  };
+}
+// ---------- trace ----------
+function clearTL(){timeline.innerHTML='';}
+function addStep(l,a){const e=document.createElement('div');e.className='step pending';
+  e.innerHTML='<div class="rail"><div class="node"></div></div><div><div class="lab">'+l+(a?' <span class="tag">'+a+'</span>':'')+'</div><div class="nt"></div></div>';
+  timeline.appendChild(e);return e;}
+const nt=(s,t)=>s.querySelector('.nt').textContent=t;const st=(s,c)=>s.className='step '+c;
+
+async function generate(){
+  setStg(1,true);clearTL();runStatus.textContent='Running\u2026';
+  main.innerHTML='<div class="hd"><h2>Drafting\u2026</h2></div><div class="pad"><div class="note grey">Resolving org context, writing the unified template (EN/AR), filling qualifications &amp; competencies by grade, and checking the Total Experience mandate. Watch the run \u2192</div></div>';
+  const j=state.jd;
+  const s1=addStep('Resolving org context','Org Context');st(s1,'active');nt(s1,j.entity);await wait(850);
+  nt(s1,'grade='+j.grade+'  position='+j.title+'  reports='+j.mgr.split(' \u2013')[0]);st(s1,'done');
+  const s2=addStep('Writing unified template','Drafting');st(s2,'active');nt(s2,'sections + purpose + responsibilities (EN/AR)');await wait(1000);
+  const flat=j.resp.reduce((a,b)=>a+b.items.length,0);nt(s2,flat+' responsibilities across '+j.resp.length+' groups');st(s2,'done');
+  const s3=addStep('Filling by grade','Drafting');st(s3,'active');nt(s3,'Article 7 quals + competency levels');await wait(750);
+  nt(s3,'core='+coreLevel(j.grade)+(leadLevel(j.grade)?' / leadership='+leadLevel(j.grade):' / no leadership'));st(s3,'done');
+  const s4=addStep('Checking the mandate','Mandate Alignment');st(s4,'active');nt(s4,'mapping to Total Experience mandate (M1\u2013M10)');await wait(950);
+  const flags=flat- j.resp.reduce((a,b)=>a+b.items.filter(i=>i.m).length,0);
+  if(flags){nt(s4,flags+' responsibility unmapped \u2014 flagged');st(s4,'warn');}else{nt(s4,'all mapped');st(s4,'done');}
+  runStatus.textContent='Draft ready';setStg(2);renderManager();
+}
+
+// ---------- unified template render ----------
+function identBlock(j){const row=(k,v)=>'<tr><td class="k">'+k+'</td><td>'+v+'</td></tr>';
+  return '<div class="ident"><table>'+row('Job Title',esc(j.title))+row('Grade',j.grade)+row('Sector',j.sector)+
+   row('Department',j.department)+row('Section',j.section)+row('Unit',j.unit)+
+   row('Line Manager',esc(j.mgr))+row('Employee Full Name',esc(j.emp))+row('Employee ID',j.empId)+'</table></div>';}
+function purpose(j){return 'The '+esc(j.title)+' supports the Total Experience Team in delivering a proactive, flexible employee experience \u2014 designing digital service journeys, running engagement initiatives, and measuring satisfaction \u2014 in line with the section mandate and the requirements of grade '+j.grade+'.';}
+function compTables(j){
+  const cl=coreLevel(j.grade),ll=leadLevel(j.grade);
+  let core='<div class="ctab"><table><thead><tr><th>Core competency</th><th>Required level</th></tr></thead><tbody>'+
+    CORE.map(c=>'<tr><td>'+c+'</td><td><span class="lvl '+lvlClass(cl)+'">'+cl+'</span></td></tr>').join('')+'</tbody></table></div>';
+  let lead= ll?('<div class="ctab"><table><thead><tr><th>Leadership competency</th><th>Required level</th></tr></thead><tbody>'+
+    LEAD.map(c=>'<tr><td>'+c+'</td><td><span class="lvl '+lvlClass(ll)+'">'+ll+'</span></td></tr>').join('')+'</tbody></table></div>')
+    :'<div class="note grey">No leadership competencies required at grade '+j.grade+'.</div>';
+  return core+lead;
+}
+
+// ---------- Stage 2: Line Manager ----------
+function renderManager(){
+  setRole('LM','Line Manager');const j=state.jd;
+  let respHtml='';j.resp.forEach((grp,gi)=>{respHtml+='<div class="grp">'+grp.grp+'</div>';
+    grp.items.forEach((it,ii)=>{respHtml+='<div class="resp" data-g="'+gi+'" data-i="'+ii+'"><div class="ix">\u2022</div></div>';});});
+  main.innerHTML='<div class="hd"><h2>Review &amp; edit draft</h2><span class="r">Line Manager</span></div>'+
+   '<div class="pad jd">'+identBlock(j)+
+   '<div class="sec"><h3>Purpose of the Role <span class="ar">\u0627\u0644\u063a\u0631\u0636 \u0645\u0646 \u0627\u0644\u062f\u0648\u0631</span></h3><p>'+purpose(j)+'</p></div>'+
+   '<div class="sec"><h3>Key Responsibilities <span class="ar">\u0627\u0644\u0645\u0633\u0624\u0648\u0644\u064a\u0627\u062a</span></h3><div style="font-size:12px;color:var(--muted);margin-bottom:6px">You will be responsible for the following but not limited to:</div><div id="respEdit">'+respHtml+'</div><div class="note grey" style="margin-top:8px">Edit any responsibility. Grade, position, and reporting line are locked to you.</div></div>'+
+   '<div class="sec"><h3>Qualifications <span class="ar">\u0627\u0644\u0645\u0624\u0647\u0644\u0627\u062a</span></h3><ul><li>'+QUALS[j.grade]+'</li><li>Relevant experience in employee/customer experience, digital services or HR operations.</li><li>Proficiency in Arabic &amp; English; survey and analytics tools.</li></ul></div>'+
+   '<div class="sec"><h3>Competencies <span class="ar">\u0627\u0644\u062c\u062f\u0627\u0631\u0627\u062a</span></h3>'+compTables(j)+'</div>'+
+   '<div class="row-actions"><button class="btn go" id="mApprove">Approve &amp; send to Talent</button><button class="btn ghost" id="mReturn">Return to Talent</button></div>'+
+   '</div>';
+  // inject editable textareas
+  [...document.querySelectorAll('#respEdit .resp')].forEach(d=>{
+    const gi=+d.dataset.g,ii=+d.dataset.i;const ta=document.createElement('textarea');
+    ta.value=j.resp[gi].items[ii].t;ta.oninput=()=>j.resp[gi].items[ii].t=ta.value;d.appendChild(ta);
+  });
+  $('mApprove').onclick=()=>{setStg(2,true);setStg(3);talentCheck();};
+  $('mReturn').onclick=()=>{state.returned='Returned by Line Manager \u2014 revisit scope before drafting again.';setStg(1);clearTL();timeline.innerHTML='<div class="tl-empty">Returned to Talent.</div>';runStatus.textContent='Returned';renderForm();};
+}
+
+// ---------- Stage 3: Talent mandate review ----------
+async function talentCheck(){
+  setRole('TR','Talent Reviewer');runStatus.textContent='Re-checking\u2026';
+  main.innerHTML='<div class="hd"><h2>Mandate alignment</h2><span class="r">Talent Reviewer</span></div><div class="pad"><div class="note grey">Re-mapping the manager\u2019s edited responsibilities against the Total Experience mandate\u2026</div></div>';
+  const ck=addStep('Re-checking alignment','Mandate Alignment');st(ck,'active');await wait(850);
+  const open=flatResp().filter(r=>!r.m&&!r.reviewed).length;
+  if(open){nt(ck,open+' item needs review');st(ck,'warn');}else{nt(ck,'all clear');st(ck,'done');}
+  runStatus.textContent='Awaiting sign-off';renderAlign();
+}
+function flatResp(){const out=[];state.jd.resp.forEach(g=>g.items.forEach(i=>out.push(i)));return out;}
+function renderAlign(){
+  const list=flatResp();
+  let rows=list.map((r,i)=>{const mapped=!!r.m;const warn=!mapped&&!r.reviewed;
+    return '<tr class="'+(warn?'warn':'')+'"><td>'+(i+1)+'. '+esc(r.t)+'</td>'+
+      '<td class="mini">'+(mapped?r.m+' '+esc(Mtext(r.m).slice(0,46))+'\u2026':'<b>UNMAPPED</b>')+'</td>'+
+      '<td>'+(mapped?'<span class="flagtag ok">Mapped</span>':(r.reviewed?'<span class="flagtag ok">Reviewed</span>':'<button class="reviewbtn" data-i="'+i+'">Mark reviewed</button>'))+'</td></tr>';}).join('');
+  const covered=new Set(list.filter(r=>r.m).map(r=>r.m));
+  const gaps=MANDATE.filter(m=>!covered.has(m[0])&&m[0]!=='M10');
+  const open=list.filter(r=>!r.m&&!r.reviewed).length;
+  main.innerHTML='<div class="hd"><h2>Mandate alignment \u00b7 Total Experience</h2><span class="r">Talent Reviewer</span></div><div class="pad">'+
+    '<div class="align"><table><thead><tr><th>Responsibility</th><th>Mandate clause</th><th>Status</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+    (gaps.length?'<div class="note amber"><b>Uncovered mandate areas:</b> '+gaps.map(g=>g[0]).join(', ')+' \u2014 no responsibility maps to these. Consider whether this role should cover them.</div>':'<div class="note green">Every mandate area is covered.</div>')+
+    '<div class="row-actions"><button class="btn go" id="tPub">Approve &amp; send to employee</button><button class="btn ghost" id="tRet">Return to manager</button></div>'+
+    (open?'<div class="note amber" style="margin-top:10px">'+open+' flagged item still open. Mark it reviewed, or proceed with your acknowledgment.</div>':'')+
+    '</div>';
+  [...document.querySelectorAll('.reviewbtn')].forEach(b=>b.onclick=()=>{flatResp()[+b.dataset.i].reviewed=true;renderAlign();});
+  $('tPub').onclick=()=>{setStg(3,true);setStg(4);sendToEmployee(open);};
+  $('tRet').onclick=()=>{setStg(2);renderManager();runStatus.textContent='Returned to manager';};
+}
+
+// ---------- Stage 4: Employee app (MOCA Smart) ----------
+async function sendToEmployee(open){
+  setRole('EE','Employee');
+  const s=addStep('Sent to employee','Workflow');st(s,'active');await wait(700);
+  nt(s,'awaiting acknowledgment in MOCA Smart');st(s,'done');runStatus.textContent='Awaiting acknowledgment';
+  renderPhone(open,false);
+}
+function renderPhone(open,live){
+  const j=state.jd;const cl=coreLevel(j.grade);
+  const initials=j.emp.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+  const coreRows=CORE.map(c=>'<div class="cc-row"><span>'+c+'</span><b>'+cl+'</b></div>').join('');
+  const respList=flatResp().map(r=>'<li>'+esc(r.t)+'</li>').join('');
+  main.innerHTML='<div class="hd"><h2>MOCA Smart \u00b7 Employee acknowledgment</h2><span class="r">'+(live?('Live \u00b7 '+(state.version||'v1.0')):'Job Description')+'</span></div>'+
+   '<div class="pad">'+(live?'<div class="livebanner">\u2713 Job description acknowledged and live on MOCA Smart \u00b7 '+(state.version||'v1.0')+' \u00b7 '+state.audit+'</div>':'')+
+   '<div class="phonewrap"><div class="phone">'+
+     '<div class="ph-hd"><div class="ph-status"><span>9:41</span><span>MOCA Smart</span></div><div class="ph-ava">'+initials+'</div></div>'+
+     '<div class="ph-body">'+
+       '<div class="ph-name">'+esc(j.emp)+'</div><div class="ph-sub">'+esc(j.title)+' \u00b7 Total Experience</div>'+
+       '<div class="ph-bk">\u2190 Employment Details</div>'+
+       '<div class="ph-tabs"><div class="ph-tab on">Job Description</div><div class="ph-tab">Employment History</div></div>'+
+       '<div class="ph-card"><div class="ph-rcap"><span class="ph-ic">\u{1F4C4}</span>'+esc(j.title)+'</div>'+
+         '<div class="ph-grid">'+
+           cell2('Direct manager',esc(j.mgr.split(' \u2013')[0]))+cell2('Job Grade',j.grade)+
+           cell2('Employment Type','Full Job')+cell2('Last change',j.lastChange)+
+           cell2('Length of Service',svc(j.hire))+cell2('Contract End Date',j.end)+
+         '</div><div class="ph-link">View MOCA Experience</div></div>'+
+       acc('Job Purpose','<p>'+purpose(j)+'</p>')+
+       acc('Key Responsibility','<ul>'+respList+'</ul>')+
+       acc('Qualifications','<ul><li>'+QUALS[j.grade]+'</li><li>Experience in employee/customer experience or digital services.</li></ul>')+
+       acc('Competencies','<div style="font-weight:700;font-size:11.5px;color:var(--muted);margin:2px 0 8px">Core Competencies</div>'+coreRows,true)+
+       (live?'':'<div class="agree"><span class="cb" id="cb"></span><span class="tx">I have read and agree to the Job Description Agreement.</span><button class="ag" id="agBtn" disabled>Agree</button></div>')+
+       '<div class="ph-cta"><div class="big">View Development Plan</div><div class="out">\u2B07 Download My Contract</div></div>'+
+     '</div></div></div>'+
+     (live?'<div class="row-actions" style="justify-content:center"><button class="btn pri" id="reset">New job description</button></div>':'<div class="note grey" style="text-align:center">Tap the checkbox, then <b>Agree</b>, to complete the employee acknowledgment \u2014 the final step before the JD goes live.</div>')+
+   '</div>';
+  // accordion toggles
+  [...document.querySelectorAll('.acc-h')].forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+  if(!live){
+    const cb=$('cb'),ag=$('agBtn');
+    cb.onclick=()=>{cb.classList.toggle('on');cb.innerHTML=cb.classList.contains('on')?'\u2713':'';ag.disabled=!cb.classList.contains('on');};
+    ag.onclick=()=>goLive(open);
+  }else{$('reset').onclick=()=>{fresh();clearTL();renderConcierge();};}
+}
+function cell2(k,v){return '<div><div class="ph-k">'+k+'</div><div class="ph-v">'+v+'</div></div>';}
+function acc(title,inner,open){return '<div class="acc'+(open?' open':'')+'"><div class="acc-h"><span class="ph-ic" style="width:22px;height:22px;font-size:11px">\u{1F4C4}</span>'+title+'<span class="chev">\u25BE</span></div><div class="acc-b">'+inner+'</div></div>';}
+function svc(hire){const y=parseInt((hire.match(/\d{4}/)||["2022"])[0],10);return Math.max(1,2026-y)+' Years';}
+
+async function goLive(open){
+  setStg(4,true);setStg(5);
+  const s=addStep('Acknowledged \u2192 publishing','Fusion');st(s,'active');await wait(900);
+  state.audit='AUD-'+Math.floor(100000+Math.random()*899999);
+  nt(s,(state.version||'v1.0')+' live on MOCA Smart \u00b7 '+state.audit+(open?' \u00b7 '+open+' flag acknowledged':''));st(s,'done');
+  runStatus.textContent='Live';renderPhone(open,true);
+}
+
+// ---------- helpers ----------
+function setStg(n,done){state.stage=n;[...document.querySelectorAll('.stp')].forEach(el=>{const s=+el.dataset.s;el.classList.toggle('active',s===n&&!done);el.classList.toggle('done',s<n||(s===n&&done));});}
+function setRole(av,nm){roleAv.textContent=av;roleName.textContent=nm;}
+function esc(s){return String(s).replace(/[<>]/g,c=>({'<':'&lt;','>':'&gt;'}[c]));}
+
+renderConcierge();
+})();
+</script>
+</body>
+</html>

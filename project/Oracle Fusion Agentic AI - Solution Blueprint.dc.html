@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#E9ECEF;-webkit-font-smoothing:antialiased}
+  .doc{box-sizing:border-box;max-width:8.5in;margin:0 auto;background:#fff;padding:64px clamp(24px,5vw,0.84in) 96px;box-shadow:0 1px 3px rgba(0,0,0,.08),0 22px 60px rgba(20,33,58,.10)}
+  .doc-frame{width:100%;border-collapse:collapse}
+  .doc-frame>tbody>tr>td,.doc-frame>thead>tr>td,.doc-frame>tfoot>tr>td{padding:0}
+  .pad-top,.pad-bottom{display:none}
+  @page{size:letter;margin:0}
+  @media print{
+    html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    html,body{margin:0;padding:0;background:#fff}
+    .doc{max-width:none!important;margin:0!important;padding:0 0.7in!important;box-shadow:none!important}
+    .pad-top,.pad-bottom{display:table-cell!important;height:0.7in}
+    .screen-only{display:none!important}
+  }
+</style>
+</helmet>
+
+<main class="doc">
+<table class="doc-frame" role="presentation">
+<thead><tr><td class="pad-top"></td></tr></thead>
+<tbody><tr><td>
+
+<header style="margin:0 0 34px">
+  <div style="display:flex;align-items:center;gap:11px;margin-bottom:24px">
+    <div style="width:30px;height:30px;border-radius:7px;background:#C74634;display:grid;place-items:center;color:#fff;font:700 13px/1 'IBM Plex Sans',sans-serif">O</div>
+    <div style="font:600 11.5px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#15233B">Oracle Fusion Cloud · Enterprise AI Advisory</div>
+    <span style="flex:1"></span>
+    <button class="screen-only" onClick="{{ print }}" style="font:600 12px/1 'IBM Plex Sans',sans-serif;color:#15233B;background:#fff;border:1px solid #D5D9DF;border-radius:7px;padding:8px 13px;cursor:pointer">Save as PDF</button>
+  </div>
+  <div style="height:3px;width:56px;background:#C74634;margin-bottom:18px"></div>
+  <h1 style="font:600 42px/1.06 'Spectral',Georgia,serif;color:#15233B;letter-spacing:-.022em;margin:0 0 12px;text-wrap:balance">Oracle Fusion Agentic AI</h1>
+  <div style="font:500 19px/1.42 'Spectral',Georgia,serif;font-style:italic;color:#5A6473;margin-bottom:26px;max-width:38em">An Enterprise Solution Blueprint for Autonomous, Agent-Driven Business Operations</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid #15233B;border-bottom:1px solid #E2E5EA">
+    <div style="padding:12px 14px 12px 0;border-right:1px solid #E2E5EA">
+      <div style="font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#9AA1AB;margin-bottom:6px">Prepared for</div>
+      <div style="font:600 13px/1.4 'IBM Plex Sans',sans-serif;color:#15233B">Senior Management &amp; Executive Sponsors</div>
+    </div>
+    <div style="padding:12px 14px;border-right:1px solid #E2E5EA">
+      <div style="font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#9AA1AB;margin-bottom:6px">Practice</div>
+      <div style="font:600 13px/1.4 'IBM Plex Sans',sans-serif;color:#15233B">Oracle Fusion Cloud &amp; Enterprise AI</div>
+    </div>
+    <div style="padding:12px 14px;border-right:1px solid #E2E5EA">
+      <div style="font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#9AA1AB;margin-bottom:6px">Date</div>
+      <div style="font:600 13px/1.4 'IBM Plex Sans',sans-serif;color:#15233B">June 2026</div>
+    </div>
+    <div style="padding:12px 0 12px 14px">
+      <div style="font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#9AA1AB;margin-bottom:6px">Classification</div>
+      <div style="font:600 13px/1.4 'IBM Plex Sans',sans-serif;color:#15233B">Internal · Executive Briefing</div>
+    </div>
+  </div>
+</header>
+
+<section style="margin:0 0 38px">
+  <p style="font:400 16px/1.62 'IBM Plex Sans',sans-serif;color:#2A3340;margin:0 0 16px">Oracle Fusion Agentic AI marks a shift from software that <em>responds to clicks</em> to software that <em>acts on intent</em>. A network of specialized AI agents — coordinated by a single supervisory orchestrator and embedded natively inside Oracle Fusion Cloud Applications — interprets natural-language requests, executes multi-step business processes, and returns decision-ready outcomes in the same place work already happens. This document translates the agentic AI workshop into an enterprise blueprint for senior management: what it is, how it is architected, the capabilities it unlocks across HR and the wider enterprise, and the governance and security model that makes it safe to adopt.</p>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px">
+    <div style="flex:1;min-width:130px;background:#15233B;color:#fff;border-radius:10px;padding:15px 17px">
+      <div style="font:600 27px/1 'Spectral',serif;margin-bottom:5px">1</div>
+      <div style="font:400 12px/1.45 'IBM Plex Sans',sans-serif;color:#AEB7C6">Supervisory orchestration layer coordinating the agent network</div>
+    </div>
+    <div style="flex:1;min-width:130px;background:#fff;border:1px solid #E2E5EA;border-radius:10px;padding:15px 17px">
+      <div style="font:600 27px/1 'Spectral',serif;color:#C74634;margin-bottom:5px">4+</div>
+      <div style="font:400 12px/1.45 'IBM Plex Sans',sans-serif;color:#5A6473">Specialized HCM agents — Compensation, Talent, Leave, Recruitment</div>
+    </div>
+    <div style="flex:1;min-width:130px;background:#fff;border:1px solid #E2E5EA;border-radius:10px;padding:15px 17px">
+      <div style="font:600 27px/1 'Spectral',serif;color:#C74634;margin-bottom:5px">7</div>
+      <div style="font:400 12px/1.45 'IBM Plex Sans',sans-serif;color:#5A6473">Stage end-to-end recruitment workflow, source to offer</div>
+    </div>
+    <div style="flex:1;min-width:130px;background:#fff;border:1px solid #E2E5EA;border-radius:10px;padding:15px 17px">
+      <div style="font:600 27px/1 'Spectral',serif;color:#C74634;margin-bottom:5px">0</div>
+      <div style="font:400 12px/1.45 'IBM Plex Sans',sans-serif;color:#5A6473">Customer data leaving Oracle Fusion to train foundation models</div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 -->
+<section style="margin:0 0 34px">
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 9px">
+    <span style="font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#C74634">01</span>
+    <span style="height:1px;flex:1;background:#E2E5EA"></span>
+  </div>
+  <h2 style="font:600 25px/1.18 'Spectral',Georgia,serif;color:#15233B;letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance">Oracle Fusion Agentic AI in Plain Business Language</h2>
+  <p style="font:400 15px/1.66 'IBM Plex Sans',sans-serif;color:#3A434F;margin:0 0 13px">Most enterprise software is <strong>reactive</strong>: it waits for a person to navigate a screen, fill a form, and click submit. Generative AI added a helpful layer on top — it can draft an email, summarize a policy, or answer a question. <strong>Agentic AI goes one step further: it completes the work.</strong> Given a goal stated in plain language, an AI agent reasons about the steps required, calls the right systems and data, performs the transaction, and reports back — escalating to a human only where judgment or approval is required.</p>
+  <p style="font:400 15px/1.66 'IBM Plex Sans',sans-serif;color:#3A434F;margin:0 0 13px">In practical terms, an Oracle Fusion AI agent combines four ingredients: a <strong>goal</strong> (what the user wants), <strong>reasoning</strong> (a plan to achieve it), <strong>tools</strong> (secure access to Fusion data and transactions), and <strong>guardrails</strong> (the policies, approvals, and role-based permissions that keep it safe). Because the agents are built <em>inside</em> Oracle Fusion rather than bolted on, they operate on live, governed enterprise data with the same security model the application already enforces — no data copies, no separate integration to maintain.</p>
+  <div style="break-inside:avoid;background:#F6F7F9;border-left:3px solid #C74634;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0 0">
+    <div style="font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#C74634;margin-bottom:6px">Key takeaway</div>
+    <div style="font:400 14.5px/1.6 'IBM Plex Sans',sans-serif;color:#2D3641">Generative AI <em>assists</em> the user. Agentic AI <em>acts for</em> the user — within governed boundaries, on enterprise data, inside the application itself.</div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section style="margin:0 0 34px">
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 9px">
+    <span style="font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#C74634">02</span>
+    <span style="height:1px;flex:1;background:#E2E5EA"></span>
+  </div>
+  <h2 style="font:600 25px/1.18 'Spectral',Georgia,serif;color:#15233B;letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance">Multi-Agent Collaboration &amp; the Supervisory (Orchestrator) Agent</h2>
+  <p style="font:400 15px/1.66 'IBM Plex Sans',sans-serif;color:#3A434F;margin:0 0 13px">No single agent tries to do everything. Instead, Oracle Fusion uses a <strong>team of specialized agents</strong> — each expert in one domain — coordinated by a <strong>Supervisory (Orchestrator) Agent</strong>. The orchestrator is the conductor: it receives the user's request, determines intent, breaks the request into tasks, routes each task to the right specialized agent, sequences their work and dependencies, and composes a single, coherent response. The user experiences one assistant; behind it, many agents collaborate.</p>
+
+  <figure style="break-inside:avoid;margin:18px 0 6px;background:#F6F7F9;border:1px solid #E7EAEE;border-radius:14px;padding:24px 22px">
+    <div style="background:#fff;border:1px solid #E2E5EA;border-radius:10px;padding:13px 16px;text-align:center;max-width:420px;margin:0 auto">
+      <div style="font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#8A929E;margin-bottom:5px">USER INTERFACE</div>
+      <div style="font:600 14px/1.3 'IBM Plex Sans',sans-serif;color:#15233B">Manager / Employee — natural-language request</div>
+    </div>
+    <div style="width:2px;height:20px;background:#C9CFD6;margin:0 auto"></div>
+    <div style="background:#15233B;color:#fff;border-radius:12px;padding:18px 22px;text-align:center;max-width:520px;margin:0 auto;box-shadow:0 10px 26px rgba(21,35,59,.20)">
+      <div style="font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#E7B7AE;margin-bottom:7px">ORCHESTRATION LAYER</div>
+      <div style="font:600 19px/1.25 'Spectral',serif">Supervisory (Orchestrator) Agent</div>
+      <div style="font:400 12.5px/1.5 'IBM Plex Sans',sans-serif;color:#AEB7C6;margin-top:6px">Interpret intent · plan &amp; decompose · delegate · sequence · synthesize</div>
+    </div>
+    <div style="width:2px;height:20px;background:#C9CFD6;margin:0 auto"></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+      <div style="background:#fff;border:1px solid #E2E5EA;border-top:3px solid #C74634;border-radius:9px;padding:12px 10px;text-align:center"><div style="font:600 13px/1.25 'IBM Plex Sans',sans-serif;color:#15233B">Compensation</div><div style="font:400 11px/1.4 'IBM Plex Sans',sans-serif;color:#7B8390;margin-top:4px">Agent</div></div>
+      <div style="background:#fff;border:1px solid #E2E5EA;border-top:3px solid #C74634;border-radius:9px;padding:12px 10px;text-align:center"><div style="font:600 13px/1.25 'IBM Plex Sans',sans-serif;color:#15233B">Talent</div><div style="font:400 11px/1.4 'IBM Plex Sans',sans-serif;color:#7B8390;margin-top:4px">Agent</div></div>
+      <div style="background:#fff;border:1px solid #E2E5EA;border-top:3px solid #C74634;border-radius:9px;padding:12px 10px;text-align:center"><div style="font:600 13px/1.25 'IBM Plex Sans',sans-serif;color:#15233B">Leave</div><div style="font:400 11px/1.4 'IBM Plex Sans',sans-serif;color:#7B8390;margin-top:4px">Agent</div></div>
+      <div style="background:#fff;border:1px solid #E2E5EA;border-top:3px solid #C74634;border-radius:9px;padding:12px 10px;text-align:center"><div style="font:600 13px/1.25 'IBM Plex Sans',sans-serif;color:#15233B">Recruitment</div><div style="font:400 11px/1.4 'IBM Plex Sans',sans-serif;color:#7B8390;margin-top:4px">Agent</div></div>
+    </div>
+    <div style="width:2px;height:20px;background:#C9CFD6;margin:0 auto"></div>
+    <div style="background:#2E3B52;color:#fff;border-radius:9px;padding:12px 16px;text-align:center">
+      <div style="font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#9FB0C9;margin-bottom:5px">GOVERNED FOUNDATION</div>
+      <div style="font:500 13px/1.4 'IBM Plex Sans',sans-serif">Oracle Fusion Cloud Applications — HCM · ERP · SCM · CX · secured data &amp; transactions</div>
+    </div>
+    <figcaption style="font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.07em;text-transform:uppercase;color:#9AA1AB;margin-top:16px;text-align:center">Figure 1 — Orchestrated multi-agent architecture</figcaption>
+  </figure>
+
+  <table style="width:100%;border-collapse:collapse;margin:18px 0 4px;font:400 13.5px/1.5 'IBM Plex Sans',sans-serif">
+    <thead><tr>
+      <th style="text-align:left;background:#15233B;color:#fff;font-weight:600;padding:9px 12px;font-size:12.5px;width:34%">Orchestrator responsibility</th>
+      <th style="text-align:left;background:#15233B;color:#fff;font-weight:600;padding:9px 12px;font-size:12.5px">What it does for the business</th>
+    </tr></thead>
+    <tbody>
+      <tr style="break-inside:avoid"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Intent recognition</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Understands what the user is actually trying to accomplish from plain language.</td></tr>
+      <tr style="break-inside:avoid;background:#F8F9FB"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Task decomposition</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Splits a complex request into discrete steps that individual agents can own.</td></tr>
+      <tr style="break-inside:avoid"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Routing &amp; delegation</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Sends each step to the specialized agent best equipped to handle it.</td></tr>
+      <tr style="break-inside:avoid;background:#F8F9FB"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Sequencing &amp; dependencies</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Manages order of operations so outputs of one agent feed the next correctly.</td></tr>
+      <tr style="break-inside:avoid"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Synthesis &amp; response</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Combines results into one clear answer or completed action for the user.</td></tr>
+      <tr style="break-inside:avoid;background:#F8F9FB"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Guardrail enforcement</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Applies role-based security, approval rules, and policy at every hand-off.</td></tr>
+    </tbody>
+  </table>
+  <div style="font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.07em;text-transform:uppercase;color:#9AA1AB;margin-top:8px">Table 1 — Responsibilities of the supervisory agent</div>
+</section>
+
+<!-- 03 -->
+<section style="margin:0 0 34px">
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 9px">
+    <span style="font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#C74634">03</span>
+    <span style="height:1px;flex:1;background:#E2E5EA"></span>
+  </div>
+  <h2 style="font:600 25px/1.18 'Spectral',Georgia,serif;color:#15233B;letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance">Manager Workspace — The Conversational Front Door for People Leaders</h2>
+  <p style="font:400 15px/1.66 'IBM Plex Sans',sans-serif;color:#3A434F;margin:0 0 13px">The Manager Workspace is where a people leader meets the agent network. Instead of navigating menus, a manager simply asks — "How much leave does Sara have left?", "Approve Ahmed's absence", "Start a job-grade change for my team" — and the orchestrator routes the request to the right agent and completes it. Critically, the conversation is <strong>context-aware</strong>: the workspace knows who the manager is, who reports to them, who is in focus, and what was discussed earlier in the conversation, while still respecting role-based access controls.</p>
+
+  <table style="width:100%;border-collapse:collapse;margin:14px 0 4px;font:400 13.5px/1.5 'IBM Plex Sans',sans-serif">
+    <thead><tr>
+      <th style="text-align:left;background:#15233B;color:#fff;font-weight:600;padding:9px 12px;font-size:12.5px;width:26%">Capability</th>
+      <th style="text-align:left;background:#15233B;color:#fff;font-weight:600;padding:9px 12px;font-size:12.5px">What it does</th>
+      <th style="text-align:left;background:#15233B;color:#fff;font-weight:600;padding:9px 12px;font-size:12.5px;width:30%">Example request</th>
+    </tr></thead>
+    <tbody>
+      <tr style="break-inside:avoid"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Employee chat</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">A conversational channel to ask about any team member or HR process.</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#6B7280;font-style:italic">"Show me Ahmed's profile and pending items."</td></tr>
+      <tr style="break-inside:avoid;background:#F8F9FB"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Leave management</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Review, approve, or decline leave requests directly in the conversation.</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#6B7280;font-style:italic">"Approve Sara's leave for next week."</td></tr>
+      <tr style="break-inside:avoid"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Absence tracking</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">See who is out, upcoming absences, and coverage gaps across the team.</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#6B7280;font-style:italic">"Who is on leave this month?"</td></tr>
+      <tr style="break-inside:avoid;background:#F8F9FB"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Leave balances</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Retrieve accurate, real-time entitlement and remaining balances on demand.</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#6B7280;font-style:italic">"How many annual-leave days does Sara have left?"</td></tr>
+      <tr style="break-inside:avoid"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">HR changes</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Initiate transactions — transfers, grade or reporting changes — with approvals.</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#6B7280;font-style:italic">"Start a promotion for Ahmed to grade 2.3."</td></tr>
+      <tr style="break-inside:avoid;background:#F8F9FB"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Context-aware conversation</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Maintains memory of who and what is in focus, so follow-ups need no repetition.</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#6B7280;font-style:italic">"…and what about her remaining sick leave?"</td></tr>
+    </tbody>
+  </table>
+  <div style="font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.07em;text-transform:uppercase;color:#9AA1AB;margin-top:8px">Table 2 — Manager Workspace capabilities</div>
+</section>
+
+<!-- 04 -->
+<section style="margin:0 0 34px">
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 9px">
+    <span style="font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#C74634">04</span>
+    <span style="height:1px;flex:1;background:#E2E5EA"></span>
+  </div>
+  <h2 style="font:600 25px/1.18 'Spectral',Georgia,serif;color:#15233B;letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance">Specialized AI Agents</h2>
+  <p style="font:400 15px/1.66 'IBM Plex Sans',sans-serif;color:#3A434F;margin:0 0 13px">Each specialized agent is a domain expert. It carries the rules, data access, and reasoning specific to its function, and it is invoked by the orchestrator whenever a request touches its area. Below are the four core HCM agents and what each one owns.</p>
+
+  <table style="width:100%;border-collapse:collapse;margin:6px 0 4px;font:400 13px/1.5 'IBM Plex Sans',sans-serif">
+    <thead><tr>
+      <th style="text-align:left;background:#15233B;color:#fff;font-weight:600;padding:9px 12px;font-size:12.5px;width:20%">Agent</th>
+      <th style="text-align:left;background:#15233B;color:#fff;font-weight:600;padding:9px 12px;font-size:12.5px">Mandate</th>
+      <th style="text-align:left;background:#15233B;color:#fff;font-weight:600;padding:9px 12px;font-size:12.5px;width:33%">Representative tasks</th>
+    </tr></thead>
+    <tbody>
+      <tr style="break-inside:avoid"><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Compensation</td><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Supports pay decisions with policy, market, and equity context.</td><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Salary recommendations, pay-equity checks, increase &amp; bonus modeling, budget guardrails.</td></tr>
+      <tr style="break-inside:avoid;background:#F8F9FB"><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Talent Management</td><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Develops and retains people through skills, goals, and succession insight.</td><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Skill-gap analysis, development plans, succession candidates, performance summaries.</td></tr>
+      <tr style="break-inside:avoid"><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Leave Management</td><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Administers time-off accurately against policy and entitlements.</td><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Balance lookups, eligibility checks, approvals, absence and coverage tracking.</td></tr>
+      <tr style="break-inside:avoid;background:#F8F9FB"><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Recruitment</td><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Runs hiring end-to-end, from sourcing to offer, with a human in the loop.</td><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Sourcing, screening, JD matching, fit scoring, scheduling, assessment, offers.</td></tr>
+    </tbody>
+  </table>
+  <div style="font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.07em;text-transform:uppercase;color:#9AA1AB;margin-top:8px">Table 3 — Core specialized HCM agents</div>
+</section>
+
+<!-- 05 -->
+<section style="margin:0 0 34px">
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 9px">
+    <span style="font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#C74634">05</span>
+    <span style="height:1px;flex:1;background:#E2E5EA"></span>
+  </div>
+  <h2 style="font:600 25px/1.18 'Spectral',Georgia,serif;color:#15233B;letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance">Agentic Applications — Where Agents Meet the Daily Workflow</h2>
+  <p style="font:400 15px/1.66 'IBM Plex Sans',sans-serif;color:#3A434F;margin:0 0 14px">Beyond answering questions, the agent network powers a set of <strong>agentic applications</strong> that proactively organize a leader's day. These surface insight, recommend the next best action, and take work off the manager's plate.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:4px 0">
+    <div style="background:#fff;border:1px solid #E2E5EA;border-radius:10px;padding:14px 16px;break-inside:avoid"><div style="font:600 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;color:#C74634;margin-bottom:6px">AI ADVISOR</div><div style="font:400 13.5px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">Conversational guidance that interprets a goal and recommends how to act on it, grounded in your own enterprise data.</div></div>
+    <div style="background:#fff;border:1px solid #E2E5EA;border-radius:10px;padding:14px 16px;break-inside:avoid"><div style="font:600 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;color:#C74634;margin-bottom:6px">KPI DASHBOARDS</div><div style="font:400 13.5px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">Live metrics on team health, headcount, attrition, and performance — narrated and explained, not just charted.</div></div>
+    <div style="background:#fff;border:1px solid #E2E5EA;border-radius:10px;padding:14px 16px;break-inside:avoid"><div style="font:600 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;color:#C74634;margin-bottom:6px">WORK SUMMARIES</div><div style="font:400 13.5px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">Concise digests of what happened, what's pending, and what changed — across the team and the manager's queue.</div></div>
+    <div style="background:#fff;border:1px solid #E2E5EA;border-radius:10px;padding:14px 16px;break-inside:avoid"><div style="font:600 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;color:#C74634;margin-bottom:6px">PRIORITY ACTIONS</div><div style="font:400 13.5px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">A ranked list of approvals, reviews, and decisions that need attention now, with one-tap completion.</div></div>
+    <div style="background:#fff;border:1px solid #E2E5EA;border-radius:10px;padding:14px 16px;break-inside:avoid"><div style="font:600 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;color:#C74634;margin-bottom:6px">WORKSPACE PLANNING</div><div style="font:400 13.5px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">Helps organize the week — meetings, deadlines, team coverage — and proposes a schedule that fits.</div></div>
+    <div style="background:#fff;border:1px solid #E2E5EA;border-radius:10px;padding:14px 16px;break-inside:avoid"><div style="font:600 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;color:#C74634;margin-bottom:6px">EMAIL &amp; COMMUNICATION</div><div style="font:400 13.5px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">Drafts, summarizes, and prioritizes correspondence, and prepares responses for the manager to approve and send.</div></div>
+  </div>
+</section>
+
+<!-- 06 -->
+<section style="margin:0 0 34px">
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 9px">
+    <span style="font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#C74634">06</span>
+    <span style="height:1px;flex:1;background:#E2E5EA"></span>
+  </div>
+  <h2 style="font:600 25px/1.18 'Spectral',Georgia,serif;color:#15233B;letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance">End-to-End Recruitment Agent Workflow</h2>
+  <p style="font:400 15px/1.66 'IBM Plex Sans',sans-serif;color:#3A434F;margin:0 0 16px">Recruitment is the clearest showcase of agentic value: a long, repetitive, multi-system process compressed into a guided flow where the agent does the heavy lifting and the recruiter makes the decisions. The workflow runs in seven stages, each with a human checkpoint before consequential actions.</p>
+
+  <figure style="margin:6px 0 6px">
+    <div style="position:relative;border-left:2px solid #E2E5EA;margin:8px 0 0 19px;padding-left:30px;display:flex;flex-direction:column;gap:18px">
+      <div style="position:relative;break-inside:avoid">
+        <div style="position:absolute;left:-51px;top:-1px;width:38px;height:38px;border-radius:50%;background:#15233B;color:#fff;display:grid;place-items:center;font:600 15px/1 'Spectral',serif">1</div>
+        <div style="font:600 15px/1.3 'IBM Plex Sans',sans-serif;color:#15233B;margin-bottom:3px">Candidate Sourcing</div>
+        <div style="font:400 13.5px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">The agent searches internal talent pools and external channels for candidates whose profiles match the open role, building a qualified longlist automatically.</div>
+      </div>
+      <div style="position:relative;break-inside:avoid">
+        <div style="position:absolute;left:-51px;top:-1px;width:38px;height:38px;border-radius:50%;background:#15233B;color:#fff;display:grid;place-items:center;font:600 15px/1 'Spectral',serif">2</div>
+        <div style="font:600 15px/1.3 'IBM Plex Sans',sans-serif;color:#15233B;margin-bottom:3px">Resume Screening</div>
+        <div style="font:400 13.5px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">Each resume is parsed and evaluated against role requirements — qualifications, experience, and skills — filtering the longlist down to genuine contenders.</div>
+      </div>
+      <div style="position:relative;break-inside:avoid">
+        <div style="position:absolute;left:-51px;top:-1px;width:38px;height:38px;border-radius:50%;background:#15233B;color:#fff;display:grid;place-items:center;font:600 15px/1 'Spectral',serif">3</div>
+        <div style="font:600 15px/1.3 'IBM Plex Sans',sans-serif;color:#15233B;margin-bottom:3px">Job-Description Matching</div>
+        <div style="font:400 13.5px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">Candidate profiles are mapped against the full job description so the recruiter sees, line by line, how each person aligns to the role's stated responsibilities and criteria.</div>
+      </div>
+      <div style="position:relative;break-inside:avoid">
+        <div style="position:absolute;left:-51px;top:-1px;width:38px;height:38px;border-radius:50%;background:#C74634;color:#fff;display:grid;place-items:center;font:600 15px/1 'Spectral',serif">4</div>
+        <div style="font:600 15px/1.3 'IBM Plex Sans',sans-serif;color:#15233B;margin-bottom:3px">Strong-Fit Scoring</div>
+        <div style="font:400 13.5px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">A transparent fit score ranks candidates, surfacing the strongest matches with the reasoning behind each score so the shortlist is explainable and defensible.</div>
+      </div>
+      <div style="position:relative;break-inside:avoid">
+        <div style="position:absolute;left:-51px;top:-1px;width:38px;height:38px;border-radius:50%;background:#15233B;color:#fff;display:grid;place-items:center;font:600 15px/1 'Spectral',serif">5</div>
+        <div style="font:600 15px/1.3 'IBM Plex Sans',sans-serif;color:#15233B;margin-bottom:3px">Interview Scheduling</div>
+        <div style="font:400 13.5px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">The agent coordinates availability across interviewers and candidates, books slots through Oracle Calendar, and handles holds, conflicts, and reschedules.</div>
+      </div>
+      <div style="position:relative;break-inside:avoid">
+        <div style="position:absolute;left:-51px;top:-1px;width:38px;height:38px;border-radius:50%;background:#15233B;color:#fff;display:grid;place-items:center;font:600 15px/1 'Spectral',serif">6</div>
+        <div style="font:600 15px/1.3 'IBM Plex Sans',sans-serif;color:#15233B;margin-bottom:3px">Assessment Management</div>
+        <div style="font:400 13.5px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">Assessments and evaluations are issued, tracked, and consolidated, with results gathered into a single comparable view for the hiring panel.</div>
+      </div>
+      <div style="position:relative;break-inside:avoid">
+        <div style="position:absolute;left:-51px;top:-1px;width:38px;height:38px;border-radius:50%;background:#2F9E5B;color:#fff;display:grid;place-items:center;font:600 15px/1 'Spectral',serif">7</div>
+        <div style="font:600 15px/1.3 'IBM Plex Sans',sans-serif;color:#15233B;margin-bottom:3px">Offer Management</div>
+        <div style="font:400 13.5px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">The agent assembles the offer against compensation policy and approvals, routes it for sign-off, and manages delivery and acceptance to close the hire.</div>
+      </div>
+    </div>
+    <figcaption style="font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.07em;text-transform:uppercase;color:#9AA1AB;margin-top:16px">Figure 2 — Seven-stage recruitment agent workflow · red = decision gate · green = completion</figcaption>
+  </figure>
+
+  <div style="break-inside:avoid;background:#F6F7F9;border-left:3px solid #C74634;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0 0">
+    <div style="font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#C74634;margin-bottom:6px">Human in the loop</div>
+    <div style="font:400 14.5px/1.6 'IBM Plex Sans',sans-serif;color:#2D3641">The agent compresses days of manual effort into minutes, but the recruiter approves the shortlist, confirms interviews, and signs the offer. Speed comes from the agent; the hiring decision stays with the human.</div>
+  </div>
+</section>
+
+<!-- 07 -->
+<section style="margin:0 0 34px">
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 9px">
+    <span style="font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#C74634">07</span>
+    <span style="height:1px;flex:1;background:#E2E5EA"></span>
+  </div>
+  <h2 style="font:600 25px/1.18 'Spectral',Georgia,serif;color:#15233B;letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance">Integration with Oracle Calendar &amp; the Manager Dashboard</h2>
+  <p style="font:400 15px/1.66 'IBM Plex Sans',sans-serif;color:#3A434F;margin:0 0 13px">Agentic AI is only useful if it plugs into the tools leaders already use. Two integrations anchor the experience. <strong>Oracle Calendar</strong> gives agents the ability to read availability, place tentative holds, resolve scheduling conflicts, and book or reschedule meetings — the backbone of interview scheduling and workspace planning. The <strong>Manager Dashboard</strong> is the two-way surface where agents read context (team, queue, KPIs) and write back outcomes (insights, priority actions, completed transactions), so guidance and action live in one place rather than a separate tool.</p>
+  <table style="width:100%;border-collapse:collapse;margin:8px 0 4px;font:400 13.5px/1.5 'IBM Plex Sans',sans-serif">
+    <thead><tr>
+      <th style="text-align:left;background:#15233B;color:#fff;font-weight:600;padding:9px 12px;font-size:12.5px;width:28%">Integration point</th>
+      <th style="text-align:left;background:#15233B;color:#fff;font-weight:600;padding:9px 12px;font-size:12.5px">How the agent uses it</th>
+    </tr></thead>
+    <tbody>
+      <tr style="break-inside:avoid"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Oracle Calendar</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Checks availability, places holds, resolves conflicts, books and reschedules interviews and meetings.</td></tr>
+      <tr style="break-inside:avoid;background:#F8F9FB"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Manager Dashboard</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Reads team context and KPIs; writes insights, priority actions, and completed transactions back into view.</td></tr>
+    </tbody>
+  </table>
+  <div style="font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.07em;text-transform:uppercase;color:#9AA1AB;margin-top:8px">Table 4 — Core integrations</div>
+</section>
+
+<!-- 08 -->
+<section style="margin:0 0 34px">
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 9px">
+    <span style="font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#C74634">08</span>
+    <span style="height:1px;flex:1;background:#E2E5EA"></span>
+  </div>
+  <h2 style="font:600 25px/1.18 'Spectral',Georgia,serif;color:#15233B;letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance">Responsible AI — Governance, Instructions &amp; Bias Reduction</h2>
+  <p style="font:400 15px/1.66 'IBM Plex Sans',sans-serif;color:#3A434F;margin:0 0 14px">Oracle's approach to Responsible AI is built into how agents are designed and operated, not added afterward. Four pillars matter most to executive stakeholders.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="break-inside:avoid;background:#fff;border:1px solid #E2E5EA;border-radius:10px;padding:15px 17px"><div style="font:600 14px/1.3 'IBM Plex Sans',sans-serif;color:#15233B;margin-bottom:6px">Prompts &amp; instructions</div><div style="font:400 13px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">Agents operate within explicit, curated system instructions that define scope, tone, and the boundaries of what they may do — and are grounded in your enterprise data rather than open speculation.</div></div>
+    <div style="break-inside:avoid;background:#fff;border:1px solid #E2E5EA;border-radius:10px;padding:15px 17px"><div style="font:600 14px/1.3 'IBM Plex Sans',sans-serif;color:#15233B;margin-bottom:6px">Governance &amp; oversight</div><div style="font:400 13px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">Human approval gates, role-based permissions, audit trails, and transparency over what an agent did and why keep accountability with the organization.</div></div>
+    <div style="break-inside:avoid;background:#fff;border:1px solid #E2E5EA;border-radius:10px;padding:15px 17px"><div style="font:600 14px/1.3 'IBM Plex Sans',sans-serif;color:#15233B;margin-bottom:6px">Bias reduction</div><div style="font:400 13px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">Curated data, fairness testing, explainable outputs, and guardrails reduce the risk of biased recommendations — especially in sensitive areas like pay and hiring.</div></div>
+    <div style="break-inside:avoid;background:#fff;border:1px solid #E2E5EA;border-radius:10px;padding:15px 17px"><div style="font:600 14px/1.3 'IBM Plex Sans',sans-serif;color:#15233B;margin-bottom:6px">Transparency &amp; explainability</div><div style="font:400 13px/1.55 'IBM Plex Sans',sans-serif;color:#3A434F">Outputs come with the reasoning and source context behind them — fit scores, recommendations, and summaries can be inspected and challenged by a person.</div></div>
+  </div>
+</section>
+
+<!-- 09 -->
+<section style="margin:0 0 34px">
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 9px">
+    <span style="font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#C74634">09</span>
+    <span style="height:1px;flex:1;background:#E2E5EA"></span>
+  </div>
+  <h2 style="font:600 25px/1.18 'Spectral',Georgia,serif;color:#15233B;letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance">Enterprise Security Model</h2>
+  <p style="font:400 15px/1.66 'IBM Plex Sans',sans-serif;color:#3A434F;margin:0 0 13px">The single most common executive question is: <em>where does our data go?</em> The answer is that it stays inside Oracle. Agents run on Oracle Cloud Infrastructure within the customer's own isolated tenancy, operate on data that never leaves Oracle Fusion, and inherit the same role-based access controls and encryption the applications already enforce. Customer data is <strong>not</strong> used to train the underlying foundation models.</p>
+  <figure style="break-inside:avoid;margin:16px 0 6px">
+    <div style="border:2px solid #15233B;border-radius:14px;padding:16px;background:#F6F7F9">
+      <div style="font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#15233B;margin-bottom:12px">Oracle Cloud Infrastructure (OCI) — regional data residency</div>
+      <div style="border:1.5px solid #5A6A86;border-radius:11px;padding:14px;background:#fff">
+        <div style="font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#5A6A86;margin-bottom:12px">Customer Tenancy — fully isolated</div>
+        <div style="border:1.5px solid #C74634;border-radius:9px;padding:14px;background:#FBF4F2">
+          <div style="font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#A23528;margin-bottom:12px">Oracle Fusion Applications + Encrypted Customer Data</div>
+          <div style="background:#15233B;color:#fff;border-radius:8px;padding:13px 15px;text-align:center">
+            <div style="font:600 14px/1.3 'IBM Plex Sans',sans-serif">Embedded AI Agents</div>
+            <div style="font:400 12px/1.5 'IBM Plex Sans',sans-serif;color:#AEB7C6;margin-top:4px">Inherit role-based access controls · operate only on permitted data</div>
+          </div>
+        </div>
+      </div>
+      <div style="font:400 12px/1.5 'IBM Plex Sans',sans-serif;color:#5A6473;margin-top:13px;display:flex;gap:8px;align-items:flex-start"><span style="color:#C74634;font-weight:700">↳</span><span>Foundation models are accessed through private, governed endpoints. Customer data is processed for the request and is <strong>not retained to train the base models</strong>.</span></div>
+    </div>
+    <figcaption style="font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.07em;text-transform:uppercase;color:#9AA1AB;margin-top:14px">Figure 3 — Layered security &amp; data-isolation model</figcaption>
+  </figure>
+</section>
+
+<!-- 10 -->
+<section style="margin:0 0 34px">
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 9px">
+    <span style="font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#C74634">10</span>
+    <span style="height:1px;flex:1;background:#E2E5EA"></span>
+  </div>
+  <h2 style="font:600 25px/1.18 'Spectral',Georgia,serif;color:#15233B;letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance">Agentic AI vs. Traditional Generative AI</h2>
+  <p style="font:400 15px/1.66 'IBM Plex Sans',sans-serif;color:#3A434F;margin:0 0 14px">Both build on large language models, but they play different roles in the enterprise. The distinction is the difference between a capable assistant and a capable colleague.</p>
+  <table style="width:100%;border-collapse:collapse;margin:4px 0;font:400 13px/1.5 'IBM Plex Sans',sans-serif">
+    <thead><tr>
+      <th style="text-align:left;background:#15233B;color:#fff;font-weight:600;padding:9px 12px;font-size:12px;width:24%">Dimension</th>
+      <th style="text-align:left;background:#5A6473;color:#fff;font-weight:600;padding:9px 12px;font-size:12px">Traditional Generative AI</th>
+      <th style="text-align:left;background:#C74634;color:#fff;font-weight:600;padding:9px 12px;font-size:12px">Agentic AI</th>
+    </tr></thead>
+    <tbody>
+      <tr style="break-inside:avoid"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Primary role</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Generates content on request</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Completes goals and tasks</td></tr>
+      <tr style="break-inside:avoid;background:#F8F9FB"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Behaviour</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Reactive — answers a prompt</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Proactive — plans and acts</td></tr>
+      <tr style="break-inside:avoid"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Steps handled</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Single response</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Multi-step processes across systems</td></tr>
+      <tr style="break-inside:avoid;background:#F8F9FB"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">System access</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Typically none — text in, text out</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Secure access to data &amp; transactions</td></tr>
+      <tr style="break-inside:avoid"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Collaboration</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Works alone</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Coordinated network via orchestrator</td></tr>
+      <tr style="break-inside:avoid;background:#F8F9FB"><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Business outcome</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Faster drafting</td><td style="padding:9px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Faster, completed business processes</td></tr>
+    </tbody>
+  </table>
+  <div style="font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.07em;text-transform:uppercase;color:#9AA1AB;margin-top:8px">Table 5 — Generative vs. agentic AI</div>
+</section>
+
+<!-- 11 -->
+<section style="margin:0 0 34px">
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 9px">
+    <span style="font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#C74634">11</span>
+    <span style="height:1px;flex:1;background:#E2E5EA"></span>
+  </div>
+  <h2 style="font:600 25px/1.18 'Spectral',Georgia,serif;color:#15233B;letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance">Additional Enterprise Use Cases</h2>
+  <p style="font:400 15px/1.66 'IBM Plex Sans',sans-serif;color:#3A434F;margin:0 0 14px">The same agentic pattern — orchestrated specialized agents acting on governed Fusion data — extends well beyond HR. The opportunities below represent natural next waves for the enterprise.</p>
+  <table style="width:100%;border-collapse:collapse;margin:4px 0;font:400 13px/1.5 'IBM Plex Sans',sans-serif">
+    <thead><tr>
+      <th style="text-align:left;background:#15233B;color:#fff;font-weight:600;padding:9px 12px;font-size:12.5px;width:20%">Domain</th>
+      <th style="text-align:left;background:#15233B;color:#fff;font-weight:600;padding:9px 12px;font-size:12.5px">Representative agentic use cases</th>
+    </tr></thead>
+    <tbody>
+      <tr style="break-inside:avoid"><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Finance</td><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Automated invoice processing, anomaly &amp; fraud detection, close acceleration, cash-flow and variance narratives, expense approvals.</td></tr>
+      <tr style="break-inside:avoid;background:#F8F9FB"><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Procurement</td><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Supplier onboarding, contract analysis, sourcing recommendations, purchase-requisition guidance, spend-compliance checks.</td></tr>
+      <tr style="break-inside:avoid"><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">Supply Chain</td><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Demand-planning support, inventory optimization, disruption detection and response, logistics scheduling, supplier-risk monitoring.</td></tr>
+      <tr style="break-inside:avoid;background:#F8F9FB"><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">ERP (cross-functional)</td><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Conversational reporting, period-close orchestration, intercompany reconciliation, policy-aware approvals, exception handling.</td></tr>
+      <tr style="break-inside:avoid"><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#15233B;font-weight:600">HCM (extended)</td><td style="padding:10px 12px;border-bottom:1px solid #E7EAEE;vertical-align:top;color:#3A434F">Onboarding journeys, learning recommendations, workforce planning, payroll queries, employee self-service across the lifecycle.</td></tr>
+    </tbody>
+  </table>
+  <div style="font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.07em;text-transform:uppercase;color:#9AA1AB;margin-top:8px">Table 6 — Enterprise expansion opportunities</div>
+</section>
+
+<!-- 12 -->
+<section style="margin:0 0 30px">
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 9px">
+    <span style="font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#C74634">12</span>
+    <span style="height:1px;flex:1;background:#E2E5EA"></span>
+  </div>
+  <h2 style="font:600 25px/1.18 'Spectral',Georgia,serif;color:#15233B;letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance">Strategic Recommendations &amp; Adoption Roadmap</h2>
+  <p style="font:400 15px/1.66 'IBM Plex Sans',sans-serif;color:#3A434F;margin:0 0 16px">We recommend a phased path that builds confidence, governance, and measurable value before scaling across the enterprise.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+    <div style="break-inside:avoid;background:#fff;border:1px solid #E2E5EA;border-top:3px solid #15233B;border-radius:10px;padding:15px 16px">
+      <div style="font:600 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;color:#9AA1AB;margin-bottom:7px">PHASE 1 · 0–3 MONTHS</div>
+      <div style="font:600 15px/1.25 'Spectral',serif;color:#15233B;margin-bottom:8px">Foundation</div>
+      <div style="font:400 12.5px/1.5 'IBM Plex Sans',sans-serif;color:#3A434F">Establish governance and Responsible-AI guardrails; pilot the Manager Workspace and Leave agent with a single department.</div>
+    </div>
+    <div style="break-inside:avoid;background:#fff;border:1px solid #E2E5EA;border-top:3px solid #C74634;border-radius:10px;padding:15px 16px">
+      <div style="font:600 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;color:#9AA1AB;margin-bottom:7px">PHASE 2 · 3–9 MONTHS</div>
+      <div style="font:600 15px/1.25 'Spectral',serif;color:#15233B;margin-bottom:8px">Scale</div>
+      <div style="font:400 12.5px/1.5 'IBM Plex Sans',sans-serif;color:#3A434F">Roll out the full HCM agent set including the recruitment workflow; integrate Calendar and the Manager Dashboard org-wide.</div>
+    </div>
+    <div style="break-inside:avoid;background:#fff;border:1px solid #E2E5EA;border-top:3px solid #2F9E5B;border-radius:10px;padding:15px 16px">
+      <div style="font:600 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;color:#9AA1AB;margin-bottom:7px">PHASE 3 · 9–18 MONTHS</div>
+      <div style="font:600 15px/1.25 'Spectral',serif;color:#15233B;margin-bottom:8px">Transform</div>
+      <div style="font:400 12.5px/1.5 'IBM Plex Sans',sans-serif;color:#3A434F">Extend agentic AI into Finance, Procurement, Supply Chain, and ERP; measure outcomes and reinvest in the highest-value flows.</div>
+    </div>
+  </div>
+  <p style="font:400 15px/1.66 'IBM Plex Sans',sans-serif;color:#3A434F;margin:18px 0 0">In summary, Oracle Fusion Agentic AI offers senior management a credible path to autonomous, agent-driven operations — delivered safely inside Oracle's secure cloud, governed by Responsible-AI principles, and grounded in the enterprise data the organization already trusts. The technology is ready; the differentiator will be the discipline of adoption.</p>
+</section>
+
+<div style="border-top:1px solid #E2E5EA;margin-top:8px;padding-top:14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+  <div style="font:400 11px/1.5 'IBM Plex Sans',sans-serif;color:#9AA1AB">Prepared as an executive briefing synthesizing the Oracle Fusion Agentic AI workshop. Illustrative architecture for decision-making purposes.</div>
+  <div style="font:600 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C74634">Oracle Fusion Cloud · Enterprise AI</div>
+</div>
+
+</td></tr></tbody>
+<tfoot><tr><td class="pad-bottom"></td></tr></tfoot>
+</table>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { print: () => window.print() };
+  }
+}
+</script>
+</body>
+</html>
