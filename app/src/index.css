@@ -1,0 +1,139 @@
+:root {
+  --ink: #1b2440;
+  --ink2: #141c33;
+  --ink3: #33406a;
+  --paper: #eff1f6;
+  --canvas: #f6f7fa;
+  --surface: #fff;
+  --surface2: #fbfcfd;
+  --line: #eaedf3;
+  --line2: #e0e4ec;
+  --muted: #697086;
+  --muted2: #9aa2b4;
+  --gold: #b8943f;
+  --gold-d: #96772e;
+  --gold-bg: #f7f0de;
+  --blue: #3f6fd6;
+  --blue-bg: #eaf0fc;
+  --green: #2f9e5b;
+  --green-bg: #e7f5ed;
+  --amber: #a07f2f;
+  --amber-bg: #f7f0de;
+  --red: #c0392b;
+  --red-bg: #fbedeb;
+  --r-lg: 20px;
+  --r-md: 14px;
+  --r-sm: 10px;
+  --r-xs: 8px;
+  --sh-sm: 0 1px 2px rgba(20, 28, 51, 0.04), 0 1px 3px rgba(20, 28, 51, 0.05);
+  --sh-md: 0 2px 8px rgba(20, 28, 51, 0.05), 0 10px 28px rgba(20, 28, 51, 0.07);
+  --sh-lg: 0 12px 48px rgba(20, 28, 51, 0.14);
+  --sans: "Hanken Grotesk", "IBM Plex Sans Arabic", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+iconify-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: -0.125em;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: var(--sans);
+  background: var(--canvas);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-thumb {
+  background: #d3d8e2;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c2c8d4;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+textarea,
+input,
+select,
+button {
+  font-family: inherit;
+}
+
+@keyframes blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+@keyframes slidein {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes panelin {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+  }
+}
+
+/* hover / focus helpers (replacing the prototype's style-hover / style-focus-within attributes) */
+.hov-nav:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+.hov-card:hover {
+  border-color: var(--gold) !important;
+  box-shadow: var(--sh-md) !important;
+  transform: translateY(-2px);
+}
+.hov-row:hover {
+  background: var(--paper);
+}
+.hov-open:hover {
+  opacity: 0.88;
+}
+.composer-wrap:focus-within {
+  border-color: var(--gold) !important;
+  box-shadow: var(--sh-md) !important;
+}
+.resp-edit:focus {
+  border-color: var(--blue) !important;
+  background: #fff !important;
+}
