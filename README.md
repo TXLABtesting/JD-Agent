@@ -48,16 +48,85 @@ to system fonts offline.
 
 ## Architecture
 
-The prototype's custom `DCLogic` runtime was ported to idiomatic React:
+The code is layered so the **UI, the AI, the business rules and the mock data are
+independent**. The UI only ever consumes clean, typed data; it never sees a
+prompt, a provider or an API. Everything is model- and provider-agnostic.
+
+```
+UI (components)  →  store  →  services/jobDescriptionService
+                                      │
+                                      ▼
+                          ai/agentOrchestrator  ──►  agents/*  ──►  services/* + data/*
+                                      │                  │
+                                      ▼                  ▼
+                          ai/aiProviderFactory     ai/aiProvider.interface
+                                      │
+                    ┌─────────────────┼─────────────────┬────────────┐
+                 local            claude(SDK)         openai        gemini
+```
+
+### AI provider abstraction (`src/ai/`)
 
 | File | Role |
 |------|------|
-| `src/store.ts` | Single observable store — all state + flow logic (ported from the prototype's `Component` class). Subscribed via `useSyncExternalStore`. |
-| `src/viewModel.ts` | `buildVM(store)` — derives the render-ready view model (ported from `renderVals`). |
-| `src/data.ts` | Master data: org tree, approved titles, grades, competencies, role archetypes, employees, requests, KB, themes. |
+| `aiProvider.interface.ts` | The single `AIProvider` contract: `generateText`, `generateStructuredOutput<T>`, optional `streamText`. All calling code depends only on this. |
+| `providers/localProvider.ts` | **Default.** Deterministic, offline, no keys — returns the grounded result the agents compute. Keeps the demo fully working. |
+| `providers/claudeProvider.ts` | Anthropic Claude via the official `@anthropic-ai/sdk` (default `claude-opus-4-8`, adaptive thinking, `output_config.format`). |
+| `providers/openaiProvider.ts` | OpenAI / Azure OpenAI / OpenAI-compatible (Chat Completions + `response_format`). |
+| `providers/geminiProvider.ts` | Google Gemini (`generateContent` + `responseSchema`). |
+| `aiProviderFactory.ts` | Selects the provider from `VITE_AI_PROVIDER`; model-backed providers are lazy-loaded (their SDKs never enter the default bundle). |
+| `config.ts` | Reads `.env` (`VITE_AI_*`). See `.env.example`. |
+| `prompts.ts` | All agent system/task prompts — kept out of components and business rules. |
+| `types.ts` | Provider IO + typed agent/generation results (all outputs are structured JSON). |
+| `agentOrchestrator.ts` | Coordinates the agents into one typed `GenerationResult`. The UI calls this (via the service), never the providers. |
+
+Switch models with **one env var** — no code change:
+
+```bash
+VITE_AI_PROVIDER=claude   # or openai | gemini | local (default)
+VITE_ANTHROPIC_API_KEY=…  # key for the chosen provider
+```
+
+Regardless of provider, the JD still follows the official unified MOCA-1289
+template, and the business/grounding logic (which enforces "only approved
+references") lives in the agents + services — separate from AI generation.
+
+### Agents (`src/agents/`)
+
+`supervisorAgent` plans the run; `organizationAgent`, `knowledgeBaseAgent`,
+`jdWriterAgent`, `qualificationAgent`, `competencyAgent`, `complianceAgent`,
+`qualityReviewAgent` and `businessRulesAgent` each produce a typed structured
+result and carry a deterministic grounded fallback.
+
+### Services (`src/services/`)
+
+`jobDescriptionService` (the façade the store calls), `masterDataService`,
+`knowledgeBaseService`, `validationService`, `sourceMappingService`,
+`versionControlService`. These hold the business rules and data access — the
+seams where Oracle Fusion, document storage and a real approval workflow plug in.
+
+### Data (`src/data/`)
+
+`masterData.ts`, `officialReferences.ts`, `mockEmployees.ts`, `mockPositions.ts`
+(seeded demo data, kept separate from generated data). UI palettes live in
+`src/theme.ts`.
+
+### UI + state (ported from the prototype's `DCLogic` runtime)
+
+| File | Role |
+|------|------|
+| `src/store.ts` | Observable store — state + flow logic, subscribed via `useSyncExternalStore`. Calls `jobDescriptionService`; contains no AI/prompt code. |
+| `src/viewModel.ts` | `buildVM(store)` — the render-ready view model. |
 | `src/i18n.ts` | EN/AR string dictionaries. |
-| `src/css.ts` | `css("prop:val;…")` helper that turns the prototype's inline-style strings into React style objects (kept for fidelity). |
-| `src/components/` | `Sidebar`, `MessageCard`, `Artifact`, and the screen views (`Views.tsx`). |
+| `src/css.ts` | Turns the prototype's inline-style strings into React style objects. |
+| `src/components/` | `Sidebar`, `MessageCard`, `Artifact`, and the screen views. |
+
+### Oracle-ready, not Oracle-connected
+
+The seams above (services + provider factory) are designed so Oracle Fusion,
+document storage, real employee/approval systems and any AI model can be
+connected later. None is wired now — the app runs on mock data and the `local`
+provider by default.
 
 The original design source lives in `MOCA JD Agent.dc.html` (with its runtime
 `support.js`, `assets/`, `screenshots/` and `uploads/` alongside it).

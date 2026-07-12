@@ -4,20 +4,18 @@ import {
   EXISTING,
   LEAD,
   MASTER,
-  ORG_TREE,
-  QUALS,
   REQUESTS,
-  ROLE_ARCHETYPES,
   THEMES,
   TITLES,
 } from "./data";
 import { DICT } from "./i18n";
+import { jobDescriptionService } from "./services/jobDescriptionService";
+import type { RequestType } from "./ai/types";
 import type {
   AppState,
   Bi,
   Chip,
   Employee,
-  Jd,
   Message,
   Seed,
   TitleRec,
@@ -160,14 +158,15 @@ export class Store {
     this.setState((s) => ({ lang: s.lang === "en" ? "ar" : "en" }));
   }
 
-  roleForTitle(t: string) {
-    const s = (t || "").toLowerCase();
-    if (/director|head|manager|deputy|\blead\b|chief/.test(s)) return "managerial";
-    if (/consultant|advisor/.test(s)) return "advisory";
-    return "executive";
-  }
-  archetypeFor(seed: Seed) {
-    return ROLE_ARCHETYPES[this.roleForTitle(seed.title)];
+  /** Map the current thread to a JD request type for the orchestrator. */
+  private reqType(): RequestType {
+    switch (this.state.threadKey) {
+      case "thread_transfer": return "transfer";
+      case "thread_prejoin": return "prejoin";
+      case "thread_existing": return "existing";
+      case "thread_update": return "update";
+      default: return "create";
+    }
   }
 
   resetThread(key: string) {
@@ -1058,7 +1057,16 @@ export class Store {
         }),
       }));
     };
-    const jd = this.composeJd(seed);
+    // Run the agent orchestrator (provider-agnostic). With the default `local`
+    // provider this returns the grounded deterministic draft instantly; the
+    // timed loop below drives the calm 4-phase progress UI.
+    const result = await jobDescriptionService.generate({
+      requestType: this.reqType(),
+      seed,
+      lang: this.state.lang,
+      targetUnit: seed.targetUnit,
+    });
+    const jd = result.jobDescription;
     for (let i = 0; i < AGENTS.length; i++) {
       await this.wait(i === 0 ? 420 : 230);
       setStep(i, { icon: "✓", color: "var(--green)", textColor: "var(--ink)", note: "" });
@@ -1077,7 +1085,7 @@ export class Store {
     });
   }
 
-  openRequest(id: string) {
+  async openRequest(id: string) {
     const r = REQUESTS.find((x) => x.id === id);
     if (!r) return;
     const rec = TITLES.find((t) => t.en === r.titleEn);
@@ -1089,7 +1097,12 @@ export class Store {
       approved: true,
       emp: r.en,
     };
-    const jd = this.composeJd(seed);
+    const result = await jobDescriptionService.generate({
+      requestType: "update",
+      seed,
+      lang: this.state.lang,
+    });
+    const jd = result.jobDescription;
     jd.status = r.status;
     this.openThread("thread_update", [
       {
@@ -1104,40 +1117,6 @@ export class Store {
     ]);
     this.setState({ flow: "update", seed, jd, artifactOpen: true });
   }
-  composeJd(seed: Seed): Jd {
-    const g = seed.grade;
-    const code = "MOCA-" + Math.floor(1000 + Math.random() * 8999);
-    const arch = this.archetypeFor(seed);
-    const roleKey = this.roleForTitle(seed.title);
-    const node = ORG_TREE[arch.scopeLevel];
-    const src: Bi = { en: node.en + " mandate", ar: "مهام " + node.ar };
-    const resp = [{ label: arch.nature, items: arch.resp.map((r) => ({ t: r, src })) }];
-    const qualBase = QUALS[g];
-    const flags: Jd["flags"] = [];
-    if (!qualBase) flags.push({ key: "flag_quals", params: { grade: g } });
-    return {
-      title: seed.title,
-      titleAr: seed.ar || "",
-      grade: g,
-      code,
-      resp,
-      quals: { base: qualBase },
-      flags,
-      confidence: flags.length ? "low" : "high",
-      verified: false,
-      emp: seed.emp || "",
-      manager: seed.manager || "",
-      roleKey,
-      scopeLevel: arch.scopeLevel,
-      scope: { en: node.en, ar: node.ar },
-      mandate: { en: node.mandate.en, ar: node.mandate.ar },
-      purposeText: arch.purpose,
-      natureLine: arch.nature,
-      authorityText: arch.authority,
-      kpis: arch.kpis,
-    };
-  }
-
   editResp(gi: number, ii: number, val: string) {
     this.setState((s) => {
       if (!s.jd) return {};
@@ -1160,10 +1139,7 @@ export class Store {
       this.startVerify();
       return;
     }
-    const flat: Jd["resp"][number]["items"] = [];
-    jd.resp.forEach((grp) => grp.items.forEach((it) => flat.push(it)));
-    const rows = flat.map((it) => ({ item: it, mapped: true }));
-    const gaps: string[] = [];
+    const { rows, gaps } = jobDescriptionService.verifyMandate(jd);
     this.setState((s) => (s.jd ? { jd: Object.assign({}, s.jd, { verified: true }) } : {}));
     this.agent("m_mandate_intro", null, { isMandate: true, rows, gaps, scopeLevel: jd.scopeLevel });
   }
@@ -1190,19 +1166,9 @@ export class Store {
   }
   approveFinal() {
     if (!this.state.jd) return;
-    const aud = "AUD-" + Math.floor(100000 + Math.random() * 899999);
     const j = this.state.jd;
-    REQUESTS.unshift({
-      id: "JD-" + Math.floor(2060 + Math.random() * 39),
-      en: j.emp || "—",
-      ar: j.emp || "—",
-      titleEn: j.title,
-      titleAr: j.titleAr || j.title,
-      grade: j.grade,
-      status: "approved",
-      ver: "v1.0",
-      updated: new Date().toISOString().slice(0, 10),
-    });
+    // Publish to Records + get an audit reference via the version-control service.
+    const aud = jobDescriptionService.approve(j);
     this.setState((s) =>
       s.jd
         ? { jd: Object.assign({}, s.jd, { stage: "published", status: "Approved" }), artifactOpen: false }
