@@ -2,7 +2,7 @@
 
 A faithful React + TypeScript implementation of the **MOCA Job Description Agent**
 prototype (Ministry of Cabinet Affairs, UAE), ported from the Claude Design
-handoff bundle in `project`.
+handoff bundle (design source and transcript now at the repository root).
 
 It is a bilingual (Arabic-default, English), fully RTL-aware, chat-first workspace
 for HR / Talent staff to **create, update, transfer and pre-join** job descriptions
@@ -59,4 +59,5 @@ The prototype's custom `DCLogic` runtime was ported to idiomatic React:
 | `src/css.ts` | `css("prop:val;…")` helper that turns the prototype's inline-style strings into React style objects (kept for fidelity). |
 | `src/components/` | `Sidebar`, `MessageCard`, `Artifact`, and the screen views (`Views.tsx`). |
 
-The original design source lives in `project/MOCA JD Agent.dc.html`.
+The original design source lives in `MOCA JD Agent.dc.html` (with its runtime
+`support.js`, `assets/`, `screenshots/` and `uploads/` alongside it).
